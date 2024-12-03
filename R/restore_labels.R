@@ -54,7 +54,7 @@ restore_labels <- function(x, newLabels,
   }
 
   for (name in common_vars) {
-    attr(x[[name]], "label") <- as.character(newLabels[[name]])
+    attr(x[[name]], "label") <- newLabels[[name]]
   }
 
   # Ensure class consistency
