@@ -19,6 +19,6 @@ test_that("label_variables() succeeds in various scenarios", {
 
   # reset to NULL
   x <- label_variables(x, list(speed = NULL, dist = NULL))
-  expect_identical(attr(x$speed, "label"), "")
-  expect_identical(attr(x$dist, "label"), "")
+  expect_null(attr(x$speed, "label"))
+  expect_null(attr(x$dist, "label"))
 })
