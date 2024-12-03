@@ -40,10 +40,10 @@ set_labels <- function(x, ...) {
   # 1. saving the existing labels
   # 2. dropping all labels & removing the safeframe class
   # 3. readding the labels and the safeframe class
-  
+
   new_labels <- rlang::list2(...)
   existing_labels <- labels(x)
-  
+
   x <- drop_safeframe(x, remove_labels = TRUE)
 
   x <- label_variables(x, utils::modifyList(existing_labels, new_labels))
