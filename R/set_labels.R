@@ -33,7 +33,22 @@ set_labels <- function(x, ...) {
   # assert inputs
   checkmate::assertClass(x, "safeframe")
 
-  labels <- rlang::list2(...)
+  # For some reason, we cannot remove labels from safeframe objects by setting
+  # the attr to NULL.
+  # We circumvent the issue by:
+  # 1. saving the existing labels
+  # 2. dropping all labels & removing the safeframe class
+  # 3. readding the labels and the safeframe class
+  
+  new_labels <- rlang::list2(...)
+  existing_labels <- labels(x)
+  
+  x <- drop_safeframe(x, remove_labels = TRUE)
 
-  label_variables(x, labels)
+  x <- label_variables(x, utils::modifyList(existing_labels, new_labels))
+
+  # shape output and return object
+  class(x) <- c("safeframe", class(x))
+
+  x
 }
