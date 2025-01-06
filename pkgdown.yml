@@ -1,10 +1,10 @@
 pandoc: 3.1.11
 pkgdown: 2.1.1.9000
-pkgdown_sha: 5c03b7444923f7c797b8b283e175f8eed63797a7
+pkgdown_sha: 4519ca0ae415b415eb8c1c142a6d4d39d8a5b80d
 articles:
   compat-dplyr: compat-dplyr.html
   design-principles: design-principles.html
-last_built: 2025-01-02T08:49Z
+last_built: 2025-01-06T10:13Z
 urls:
   reference: https://epiverse-trace.github.io/safeframe/reference
   article: https://epiverse-trace.github.io/safeframe/articles
