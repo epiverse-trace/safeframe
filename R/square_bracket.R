@@ -91,7 +91,7 @@
   }
 
   # Case 2
-  old_labels <- labels(x, show_null = TRUE)
+  old_labels <- labels(x, show_null = FALSE)
   out <- restore_labels(out, old_labels, lost_action)
 
   out
