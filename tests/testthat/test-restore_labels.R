@@ -26,3 +26,21 @@ test_that("tests for restore_labels", {
   x$speed <- "test3"
   expect_equal(class(x), c("safeframe", "data.frame"))
 })
+
+test_that("retain class inheritance #56", {
+  
+  x <- make_safeframe(
+    cars,
+    speed = "Miles per hour"
+  )
+  class(x) <- c("linelist", class(x))
+  class(x)
+  #> [1] "linelist"   "safeframe"  "data.frame"
+  
+  y <- suppressWarnings(x[, 1])
+  #> Warning: The following labelled variables are lost:
+  #>  dist - NULL
+  class(y)
+  
+  expect_equal(class(x), class(y))
+})

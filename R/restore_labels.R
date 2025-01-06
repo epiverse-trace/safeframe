@@ -59,7 +59,9 @@ restore_labels <- function(x, newLabels,
 
   # Ensure class consistency
   if (!inherits(x, "safeframe")) {
-    class(x) <- c("safeframe", class(x))
+    current_classes <- class(x)
+    df_index <- which(current_classes == "data.frame")
+    class(x) <- append(current_classes, "safeframe", after = df_index - 1)
   }
 
   x
