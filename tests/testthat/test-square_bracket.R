@@ -160,3 +160,11 @@ test_that("$<- allows innocuous label modification", {
   attr(y, "label") <- "Miles per hour"
   expect_identical(x$speed, y)
 })
+
+test_that("no warnings when unlabelled columns are dropped - #55", {
+  x <- make_safeframe(cars,
+    speed = "Miles per hour"
+  )
+
+  expect_silent(x[, "speed"])
+})
