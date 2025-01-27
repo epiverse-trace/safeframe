@@ -5,7 +5,7 @@
 <!-- `packagename` is extracted from the DESCRIPTION file -->
 <!-- `gh_repo` is extracted via a special environment variable in GitHub Actions -->
 
-# *safeframe*: Generic Data Labelling and Validating <img src="man/figures/logo.svg" align="right" width="120" alt="Logo for safeframe" />
+# *safeframe*: Generic Data tagging and Validating <img src="man/figures/logo.svg" align="right" width="120" alt="Logo for safeframe" />
 
 <!-- badges: start -->
 
@@ -101,7 +101,7 @@ This project is related to other existing projects in R or other
 languages, but also differs from them in the following aspects:
 
 - [labelled](https://github.com/larmarange/labelled/): A package for
-  labelling data in R, but it is more focused on labelling variables
+  tagging data in R, but it is more focused on tagging variables
   than validating them.
 - [linelist](https://github.com/epiverse-trace/linelist): A package for
   managing and validating linelist data - the original inspiration for

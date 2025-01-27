@@ -32,12 +32,12 @@
 #'   x <- x %>%
 #'     rename(speed = "mph")
 #'   head(x)
-#'   labels(x)
+#'   tags(x)
 #' }
 `names<-.safeframe` <- function(x, value) {
   # Strategy for renaming
 
-  # Since renaming cannot drop columns, we can update labels to match new
+  # Since renaming cannot drop columns, we can update tags to match new
   # variable names. We do this by:
 
   # 1. Storing old names and new names to have define replacement rules
@@ -57,9 +57,9 @@
   }
 
   # Step 2
-  out_labels <- labels(x, show_null = TRUE)
-  names(out_labels) <- new_names
-  out <- label_variables(out, out_labels)
+  out_tags <- tags(x, show_null = TRUE)
+  names(out_tags) <- new_names
+  out <- tag_variables(out, out_tags)
   class(out) <- class(x)
 
   out

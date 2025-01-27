@@ -30,8 +30,8 @@ test_that("Compatibility with dplyr::filter()", {
   # nolint end: expect_named_linter
 
   expect_identical(
-    labels(dplyr::filter(x, dist > mean(dist))),
-    labels(x)
+    tags(dplyr::filter(x, dist > mean(dist))),
+    tags(x)
   )
 })
 
@@ -55,7 +55,7 @@ test_that("Compatibility with dplyr::transmute()", {
 test_that("Compatibility with dplyr::mutate(.keep)", {
   # This is not ideal because this simple mutate() is actually equivalent to a
   # rename() and it would be great if dplyr could pick this up and modify the
-  # labels as it does in the rename() case.
+  # tags as it does in the rename() case.
   x %>%
     dplyr::mutate(vitesse = speed, .keep = "unused") %>%
     expect_s3_class("safeframe") %>%
@@ -66,8 +66,8 @@ test_that("Compatibility with dplyr::mutate(.keep)", {
 test_that("compatibility with dplyr::mutate across", {
   x |>
     dplyr::mutate(dplyr::across(dist, ~ . * 10)) |>
-    labels() |>
-    expect_identical(labels(x))
+    tags() |>
+    expect_identical(tags(x))
 })
 
 
@@ -93,7 +93,7 @@ test_that("Compatibility with dplyr::relocate()", {
 
 test_that("Compatibility with dplyr::rename()", {
   expect_identical(
-    labels(dplyr::rename(x, toto = dist)),
+    tags(dplyr::rename(x, toto = dist)),
     list(speed = "Miles per hour", toto = "Distance in miles")
   )
 
@@ -112,8 +112,8 @@ test_that("Compatibility with dplyr::rename_with()", {
   y <- x
   names(y) <- toupper(names(y))
   expect_identical(
-    labels(dplyr::rename_with(x, toupper)),
-    labels(y)
+    tags(dplyr::rename_with(x, toupper)),
+    tags(y)
   )
 
   # Identity
@@ -131,7 +131,7 @@ test_that("Compatibility with dplyr::select()", {
   x %>%
     dplyr::select("dist") %>%
     expect_s3_class("safeframe") %>%
-    labels() %>%
+    tags() %>%
     expect_identical(list(dist = "Distance in miles")) %>%
     expect_snapshot_warning()
 
@@ -139,7 +139,7 @@ test_that("Compatibility with dplyr::select()", {
   x %>%
     dplyr::select(dist, vitesse = speed) %>%
     expect_s3_class("safeframe") %>%
-    labels() %>%
+    tags() %>%
     expect_identical(list(
       dist = "Distance in miles",
       vitesse = "Miles per hour"

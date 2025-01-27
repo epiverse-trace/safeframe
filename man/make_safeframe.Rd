@@ -10,8 +10,8 @@ make_safeframe(x, ...)
 \item{x}{a \code{data.frame} or a \code{tibble}}
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A named list with variable
-names in \code{x} as list names and the labels as list values. Values set to
-\code{NULL} remove the label. When specifying labels, please also see
+names in \code{x} as list names and the tags as list values. Values set to
+\code{NULL} remove the tag When specifying tags, please also see
 \code{default_values}.}
 }
 \value{
@@ -33,15 +33,15 @@ x <- make_safeframe(cars,
 ## print result - just first few entries
 head(x)
 
-## check labels
-labels(x)
+## check tags
+tags(x)
 
-## Labels can also be passed as a list with the splice operator (!!!)
-my_labels <- list(
+## tags can also be passed as a list with the splice operator (!!!)
+my_tags <- list(
   speed = "Miles per hour",
   dist = "Distance in miles"
 )
-new_x <- make_safeframe(cars, !!!my_labels)
+new_x <- make_safeframe(cars, !!!my_tags)
 
 ## The output is strictly equivalent to the previous one
 identical(x, new_x)
@@ -50,8 +50,8 @@ identical(x, new_x)
 \seealso{
 \itemize{
 \item An overview of the \link{safeframe} package
-\item \code{\link[=labels]{labels()}}: for a list of tagged variables in a \code{safeframe}
-\item \code{\link[=set_labels]{set_labels()}}: for modifying labels
-\item \code{\link[=labels_df]{labels_df()}}: for selecting variables by labels
+\item \code{\link[=tags]{tags()}}: for a list of tagged variables in a \code{safeframe}
+\item \code{\link[=set_tags]{set_tags()}}: for modifying tags
+\item \code{\link[=tags_df]{tags_df()}}: for selecting variables by tags
 }
 }

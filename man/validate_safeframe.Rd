@@ -17,8 +17,8 @@ If checks pass, a \code{safeframe} object; otherwise issues an error.
 }
 \description{
 This function evaluates the validity of a \code{safeframe} object by checking the
-object class, its labels, and the types of variables. It combines
-validation checks made by \code{\link[=validate_types]{validate_types()}} and \code{\link[=validate_labels]{validate_labels()}}. See
+object class, its tags, and the types of variables. It combines
+validation checks made by \code{\link[=validate_types]{validate_types()}} and \code{\link[=validate_tags]{validate_tags()}}. See
 'Details' section for more information on the checks performed.
 }
 \details{
@@ -55,6 +55,6 @@ tryCatch(validate_safeframe(x,
 \seealso{
 \itemize{
 \item \code{\link[=validate_types]{validate_types()}} to check if variables have the right types
-\item \code{\link[=validate_labels]{validate_labels()}} to perform a series of checks on the tags
+\item \code{\link[=validate_tags]{validate_tags()}} to perform a series of checks on the tags
 }
 }

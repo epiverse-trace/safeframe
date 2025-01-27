@@ -1,18 +1,18 @@
-# tests for set_labels()
+# tests for set_tags()
 
     Code
-      set_labels(cars)
+      set_tags(cars)
     Condition
-      Error in `set_labels()`:
+      Error in `set_tags()`:
       ! Assertion on 'x' failed: Must inherit from class 'safeframe', but has class 'data.frame'.
 
 ---
 
     Code
-      set_labels(x, toto = "speed")
+      set_tags(x, toto = "speed")
     Condition
       Error in `base::tryCatch()`:
       ! 1 assertions failed:
-       * Variable 'namedLabel': Must be element of set {'speed','dist'}, but
-       * is 'toto'.
+       * Variable 'namedTag': Must be element of set {'speed','dist'}, but is
+       * 'toto'.
 

@@ -1,4 +1,4 @@
-#' Check and set behaviour for lost labels
+#' Check and set behaviour for lost tags
 #'
 #' This function determines the behaviour to adopt when tagged variables of a
 #' `safeframe` are lost for example through subsetting. This is achieved using
@@ -19,39 +19,39 @@
 #'
 #' @export
 #'
-#' @rdname lost_labels_action
+#' @rdname lost_tags_action
 #'
-#' @aliases lost_labels_action get_lost_labels_action
+#' @aliases lost_tags_action get_lost_tags_action
 #'
 #' @examples
 #' # reset default - done automatically at package loading
-#' lost_labels_action()
+#' lost_tags_action()
 #'
 #' # check current value
-#' get_lost_labels_action()
+#' get_lost_tags_action()
 #'
 #' # change to issue errors when tags are lost
-#' lost_labels_action("error")
-#' get_lost_labels_action()
+#' lost_tags_action("error")
+#' get_lost_tags_action()
 #'
 #' # change to ignore when tags are lost
-#' lost_labels_action("none")
-#' get_lost_labels_action()
+#' lost_tags_action("none")
+#' get_lost_tags_action()
 #'
 #' # reset to default: warning
-#' lost_labels_action()
+#' lost_tags_action()
 #'
-lost_labels_action <- function(action = c("warning", "error", "none"),
-                               quiet = FALSE) {
+lost_tags_action <- function(action = c("warning", "error", "none"),
+                             quiet = FALSE) {
   safeframe_options <- options("safeframe")$safeframe
 
   action <- match.arg(action)
-  safeframe_options$lost_labels_action <- action
+  safeframe_options$lost_tags_action <- action
   options(safeframe = safeframe_options)
   if (!quiet) {
-    if (action == "warning") msg <- "Lost labels will now issue a warning."
-    if (action == "error") msg <- "Lost labels will now issue an error."
-    if (action == "none") msg <- "Lost labels will now be ignored."
+    if (action == "warning") msg <- "Lost tags will now issue a warning."
+    if (action == "error") msg <- "Lost tags will now issue an error."
+    if (action == "none") msg <- "Lost tags will now be ignored."
     message(msg)
   }
   return(invisible(NULL))
@@ -61,8 +61,8 @@ lost_labels_action <- function(action = c("warning", "error", "none"),
 
 #' @export
 #'
-#' @rdname lost_labels_action
+#' @rdname lost_tags_action
 
-get_lost_labels_action <- function() {
-  options("safeframe")$safeframe$lost_labels_action
+get_lost_tags_action <- function() {
+  options("safeframe")$safeframe$lost_tags_action
 }

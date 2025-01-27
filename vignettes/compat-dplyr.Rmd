@@ -34,7 +34,7 @@ head(x)
 ## Verbs operating on rows
 
 safeframe does not modify anything regarding the behaviour for row-operations. As such, it is fully compatible with dplyr verbs operating on rows out-of-the-box.
-You can see in the following examples that safeframe does not produce any errors, warnings or messspeeds and its labels are conserved through dplyr operations on rows.
+You can see in the following examples that safeframe does not produce any errors, warnings or messspeeds and its tags are conserved through dplyr operations on rows.
 
 ### `dplyr::arrange()` ✅
 
@@ -86,22 +86,22 @@ x %>%
 
 During operations on columns, safeframe will:
 
-- stay invisible and conserve labels if no tagged column is affected by the operation
-- trigger `lost_labels_action()` if tagged columns are affected by the operation
+- stay invisible and conserve tags if no tagged column is affected by the operation
+- trigger `lost_tags_action()` if tagged columns are affected by the operation
 
 ### `dplyr::mutate()` ✓ (partial)
 
-There is an incomplete compatibility with `dplyr::mutate()` in that simple renames without any actual modification of the column don't update the labels. In this scenario, users should rather use `dplyr::rename()`
+There is an incomplete compatibility with `dplyr::mutate()` in that simple renames without any actual modification of the column don't update the tags. In this scenario, users should rather use `dplyr::rename()`
 
-Although `dplyr::mutate()` is not able to leverspeed to full power of safeframe labels, safeframe objects behave as expected the same way a data.frame would:
+Although `dplyr::mutate()` is not able to leverspeed to full power of safeframe tags, safeframe objects behave as expected the same way a data.frame would:
 
 ```{r}
-# In place modification doesn't lose labels
+# In place modification doesn't lose tags
 x %>%
   mutate(speed = speed + 10) %>%
   head()
 
-# New columns don't affect existing labels
+# New columns don't affect existing tags
 x %>%
   mutate(ticket = speed >= 50) %>%
   head()
@@ -114,7 +114,7 @@ x %>%
 
 ### `dplyr::pull()` ✅
 
-`dplyr::pull()` returns a vector, which results, as expected, in the loss of the safeframe class and labels:
+`dplyr::pull()` returns a vector, which results, as expected, in the loss of the safeframe class and tags:
 
 ```{r}
 x %>%
@@ -132,7 +132,7 @@ x %>%
 
 ### `dplyr::rename()` & `dplyr::rename_with()` ✅
 
-`dplyr::rename()` is fully compatible out-of-the-box with safeframe, meaning that labels will be updated at the same time that columns are renamed. This is possibly because it uses `names<-()` under the hood, which safeframe provides a custom `names<-.safeframe()` method for:
+`dplyr::rename()` is fully compatible out-of-the-box with safeframe, meaning that tags will be updated at the same time that columns are renamed. This is possibly because it uses `names<-()` under the hood, which safeframe provides a custom `names<-.safeframe()` method for:
 
 ```{r}
 x %>%
@@ -154,7 +154,7 @@ x %>%
   select(speed, dist) %>%
   head()
 
-# labels are updated!
+# tags are updated!
 x %>%
   select(dist, edad = speed) %>%
   head()
@@ -178,8 +178,8 @@ dim(bind_rows(x, x))
 
 `bind_cols()` is currently incompatible with safeframe:
 
-- labels from the second element are lost
-- Warnings are produced about lost labels, even for labels that are not actually lost
+- tags from the second element are lost
+- Warnings are produced about lost tags, even for tags that are not actually lost
 
 ```{r}
 bind_cols(
@@ -191,7 +191,7 @@ bind_cols(
 
 ### Joins ✘
 
-Joins are currently not compatible with safeframe as labels from the second element are silently dropped.
+Joins are currently not compatible with safeframe as tags from the second element are silently dropped.
 
 ```{r}
 full_join(
@@ -213,7 +213,7 @@ x %>%
   head()
 ```
 
-As such, we could expect it to work with safeframe custom tidyselect-like function: `has_label()` but it's not the case since `pick()` currently strips out all attributes, including the `safeframe` class and all labels.
+As such, we could expect it to work with safeframe custom tidyselect-like function: `has_tag()` but it's not the case since `pick()` currently strips out all attributes, including the `safeframe` class and all tags.
 This unclassing is documented in `?pick`:
 
 > `pick()` returns a data frame containing the selected columns for the current group.

@@ -1,7 +1,7 @@
-#' Checks the labels of a safeframe object
+#' Checks the tags of a safeframe object
 #'
-#' This function evaluates the validity of the labels of a `safeframe` object by
-#' checking that: i) labels are present ii) labels is a `list` of `character` or
+#' This function evaluates the validity of the tags of a `safeframe` object by
+#' checking that: i) tags are present ii) tags is a `list` of `character` or
 #' `NULL` values.
 #'
 #' @export
@@ -31,14 +31,14 @@
 #'   speed = c("integer", "numeric"),
 #'   dist = "numeric"
 #' )
-validate_labels <- function(x) {
+validate_tags <- function(x) {
   checkmate::assert_class(x, "safeframe")
-  x_labels <- labels(x, show_null = TRUE)
+  x_tags <- tags(x, show_null = TRUE)
 
-  if (is.null(unlist(x_labels))) stop("`x` has no labels")
+  if (is.null(unlist(x_tags))) stop("`x` has no tags")
 
-  # check that x_labels is a list, and each label is a `character`
-  checkmate::assert_list(x_labels, types = c("character", "null"))
+  # check that x_tags is a list, and each tag is a `character`
+  checkmate::assert_list(x_tags, types = c("character", "null"))
 
   x
 }

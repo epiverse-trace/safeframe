@@ -1,4 +1,4 @@
-test_that("tests for restore_labels", {
+test_that("tests for restore_tags", {
   # These are now order dependent for the tests
   x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
   y <- drop_safeframe(x)
@@ -7,17 +7,17 @@ test_that("tests for restore_labels", {
 
   # Check error messages
   expect_error(
-    restore_labels(z, labels(x)),
-    "No matching labels provided."
+    restore_tags(z, tags(x)),
+    "No matching tags provided."
   )
 
   # Check functionality
-  expect_identical(x, restore_labels(x, labels(x)))
-  expect_identical(x, restore_labels(y, labels(x)))
+  expect_identical(x, restore_tags(x, tags(x)))
+  expect_identical(x, restore_tags(y, tags(x)))
 
   # Classes are correct for different operator use
   expect_equal(class(x), c("safeframe", "data.frame"))
-  y <- restore_labels(y, labels(x))
+  y <- restore_tags(y, tags(x))
   expect_equal(class(y), c("safeframe", "data.frame"))
   x[[1]] <- "test"
   expect_equal(class(x), c("safeframe", "data.frame"))

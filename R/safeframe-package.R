@@ -1,6 +1,6 @@
-#' Base Tools for Labelling and Validating Data
+#' Base Tools for tagging and Validating Data
 #'
-#' The \pkg{safeframe} package provides tools to help label and validate data.
+#' The \pkg{safeframe} package provides tools to help tag and validate data.
 #' The 'safeframe' class adds column level attributes to a 'data.frame'.
 #' Once tagged, variables can be seamlessly used in downstream analyses,
 #' making data pipelines more robust and reliable.
@@ -12,17 +12,17 @@
 #'   * [make_safeframe()]: to create `safeframe` objects from a `data.frame` or
 #'   a `tibble`
 #'
-#'   * [set_labels()]: to change or add tagged variables in a `safeframe`
+#'   * [set_tags()]: to change or add tagged variables in a `safeframe`
 #'
-#'   * [labels()]: to get the list of labels of a `safeframe`
+#'   * [tags()]: to get the list of tags of a `safeframe`
 #'
-#'   * [labels_df()]: to get a `data.frame` of all tagged variables
+#'   * [tags_df()]: to get a `data.frame` of all tagged variables
 #'
-#'   * [lost_labels_action()]: to change the behaviour of actions where tagged
+#'   * [lost_tags_action()]: to change the behaviour of actions where tagged
 #'   variables are lost (e.g removing columns storing tagged variables) to
 #'   issue warnings, errors, or do nothing
 #'
-#'   * [get_lost_labels_action()]: to check the current behaviour of actions
+#'   * [get_lost_tags_action()]: to check the current behaviour of actions
 #'   where tagged variables are lost
 #'
 #' @section Dedicated methods:
@@ -33,7 +33,7 @@
 #'   pipelines).
 #'
 #'   * `names() <-` (and related functions, such as [dplyr::rename()]) will
-#'   rename labels as needed
+#'   rename tags as needed
 #'
 #'   * `x[...] <-` and `x[[...]] <-` (see [sub_safeframe]): will adopt the
 #'    desired behaviour when tagged variables are lost
@@ -43,7 +43,7 @@
 #'
 #' @note The package does not aim to have complete integration with \pkg{dplyr}
 #' functions. For example, [dplyr::mutate()] and [dplyr::bind_rows()] will
-#' not preserve labels. We only provide compatibility for [dplyr::rename()].
+#' not preserve tags. We only provide compatibility for [dplyr::rename()].
 #'
 #' @examples
 #'
@@ -55,29 +55,29 @@
 #' x
 #'
 #' ## check tagged variables
-#' labels(x)
+#' tags(x)
 #'
 #' ## robust renaming
 #' names(x)[1] <- "identifier"
 #' x
 #'
-#' ## example of dropping labels by mistake - default: warning
+#' ## example of dropping tags by mistake - default: warning
 #' x[, 2]
 #'
-#' ## to silence warnings when labels are dropped
-#' lost_labels_action("none")
+#' ## to silence warnings when tags are dropped
+#' lost_tags_action("none")
 #' x[, 2]
 #'
-#' ## to trigger errors when labels are dropped
-#' # lost_labels_action("error")
+#' ## to trigger errors when tags are dropped
+#' # lost_tags_action("error")
 #' # x[, 2:5]
 #'
 #' ## reset default behaviour
-#' lost_labels_action()
+#' lost_tags_action()
 #'
 #' # using tidyverse style
 #'
-#' ## example of creating a safeframe, adding a new variable, and adding a label
+#' ## example of creating a safeframe, adding a new variable, and adding a tag
 #' ## for it
 #'
 #' if (require(dplyr) && require(magrittr)) {
@@ -88,17 +88,17 @@
 #'       dist = "Distance in miles"
 #'     ) %>%
 #'     mutate(result = if_else(speed > 50, "fast", "slow")) %>%
-#'     set_labels(result = "Ticket yes/no")
+#'     set_tags(result = "Ticket yes/no")
 #'
 #'   head(x)
 #'
 #'   ## extract tagged variables
 #'   x %>%
-#'     select(has_label(c("Ticket yes/no")))
+#'     select(has_tag(c("Ticket yes/no")))
 #'
-#'   ## Retrieve all labels
+#'   ## Retrieve all tags
 #'   x %>%
-#'     labels()
+#'     tags()
 #'
 #'   ## Select based on variable name
 #'   x %>%

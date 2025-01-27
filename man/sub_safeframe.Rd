@@ -45,7 +45,7 @@ If no drop is happening, a \code{safeframe}. Otherwise an atomic vector.
 The \verb{[]} and \verb{[[]]} operators for \code{safeframe} objects behaves like for
 regular \code{data.frame} or \code{tibble}, but check that tagged variables are not
 lost, and takes the appropriate action if this is the case (warning, error,
-or ignore, depending on the general option set via \code{\link[=lost_labels_action]{lost_labels_action()}}) .
+or ignore, depending on the general option set via \code{\link[=lost_tags_action]{lost_tags_action()}}) .
 }
 \examples{
 if (require(dplyr) && require(magrittr)) {
@@ -56,7 +56,7 @@ if (require(dplyr) && require(magrittr)) {
       dist = "Distance in miles"
     ) \%>\%
     mutate(result = if_else(speed > 50, "fast", "slow")) \%>\%
-    set_labels(result = "Ticket")
+    set_tags(result = "Ticket")
   x
 
   ## dangerous removal of a tagged column setting it to NULL issues warning
@@ -72,8 +72,8 @@ if (require(dplyr) && require(magrittr)) {
 }
 \seealso{
 \itemize{
-\item \code{\link[=lost_labels_action]{lost_labels_action()}} to set the behaviour to adopt when labels are
+\item \code{\link[=lost_tags_action]{lost_tags_action()}} to set the behaviour to adopt when tags are
 lost through subsetting; default is to issue a warning
-\item \code{\link[=get_lost_labels_action]{get_lost_labels_action()}} to check the current the behaviour
+\item \code{\link[=get_lost_tags_action]{get_lost_tags_action()}} to check the current the behaviour
 }
 }

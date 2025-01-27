@@ -6,7 +6,7 @@ test_that("tests for make_safeframe", {
   msg <- "Must have at least 1 cols, but has 0 cols."
   expect_error(make_safeframe(data.frame()), msg)
 
-  msg <- "* Variable 'namedLabel': Must be element of set {'speed','dist'}, but"
+  msg <- "* Variable 'namedTag': Must be element of set {'speed','dist'}, but"
   expect_error(make_safeframe(cars, outcome = "bar"), msg, fixed = TRUE)
 
   expect_error(
@@ -17,18 +17,18 @@ test_that("tests for make_safeframe", {
   # test functionalities
   expect_identical(
     list(speed = NULL, dist = NULL),
-    labels(make_safeframe(cars), TRUE)
+    tags(make_safeframe(cars), TRUE)
   )
 
   x <- make_safeframe(cars, dist = "Date onset", speed = "Date outcome")
-  expect_identical(labels(x)$dist, "Date onset")
-  expect_identical(labels(x)$speed, "Date outcome")
-  expect_null(labels(x)$"Date onset")
-  expect_null(labels(x)$"Date outcome")
+  expect_identical(tags(x)$dist, "Date onset")
+  expect_identical(tags(x)$speed, "Date outcome")
+  expect_null(tags(x)$"Date onset")
+  expect_null(tags(x)$"Date outcome")
 
   x <- make_safeframe(cars, speed = "foo", dist = "bar")
   expect_identical(
-    labels(x, TRUE),
+    tags(x, TRUE),
     c(list(), speed = "foo", dist = "bar")
   )
 })
@@ -52,7 +52,7 @@ test_that("make_safeframe() errors on data.table input", {
   )
 })
 
-test_that("make_safeframe() works with single & multi-word labels", {
+test_that("make_safeframe() works with single & multi-word tags", {
   expect_no_condition(make_safeframe(cars, speed = "mph"))
   expect_no_condition(make_safeframe(cars, speed = "Miles per hour"))
 })

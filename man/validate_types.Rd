@@ -40,7 +40,7 @@ validate_types(x, speed = "numeric", dist = c(
 }
 \seealso{
 \itemize{
-\item \code{\link[=validate_labels]{validate_labels()}} to perform a series of checks on variables
-\item \code{\link[=validate_safeframe]{validate_safeframe()}} to combine \code{validate_labels} and \code{validate_types}
+\item \code{\link[=validate_tags]{validate_tags()}} to perform a series of checks on variables
+\item \code{\link[=validate_safeframe]{validate_safeframe()}} to combine \code{validate_tags} and \code{validate_types}
 }
 }
