@@ -43,7 +43,7 @@ If no drop is happening, a \code{safeframe}. Otherwise an atomic vector.
 }
 \description{
 The \verb{[]} and \verb{[[]]} operators for \code{safeframe} objects behaves like for
-regular \code{data.frame} or \code{tibble}, but check that labelled variables are not
+regular \code{data.frame} or \code{tibble}, but check that tagged variables are not
 lost, and takes the appropriate action if this is the case (warning, error,
 or ignore, depending on the general option set via \code{\link[=lost_labels_action]{lost_labels_action()}}) .
 }
@@ -59,7 +59,7 @@ if (require(dplyr) && require(magrittr)) {
     set_labels(result = "Ticket")
   x
 
-  ## dangerous removal of a labelled column setting it to NULL issues warning
+  ## dangerous removal of a tagged column setting it to NULL issues warning
   x[, 1] <- NULL
   x
 

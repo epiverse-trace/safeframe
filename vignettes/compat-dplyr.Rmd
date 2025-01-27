@@ -86,8 +86,8 @@ x %>%
 
 During operations on columns, safeframe will:
 
-- stay invisible and conserve labels if no labelled column is affected by the operation
-- trigger `lost_labels_action()` if labelled columns are affected by the operation
+- stay invisible and conserve labels if no tagged column is affected by the operation
+- trigger `lost_labels_action()` if tagged columns are affected by the operation
 
 ### `dplyr::mutate()` ✓ (partial)
 

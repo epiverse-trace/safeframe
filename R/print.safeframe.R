@@ -41,9 +41,9 @@ print.safeframe <- function(x, ...) {
   labels_txt <- vars_labels(label_names, label_values)
 
   if (labels_txt == "") {
-    cat("\n[no labelled variables]\n")
+    cat("\n[no tagged variables]\n")
   } else {
-    cat("\nlabelled variables:\n", labels_txt, "\n")
+    cat("\ntagged variables:\n", labels_txt, "\n")
   }
 
   invisible(x)

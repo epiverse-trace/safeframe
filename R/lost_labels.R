@@ -18,7 +18,7 @@ lost_labels <- function(old, new, lost_action) {
 
     lost_msg <- vars_labels(lost_vars, lost_labels)
     msg <- paste(
-      "The following labelled variables are lost:\n",
+      "The following tagged variables are lost:\n",
       lost_msg
     )
     if (lost_action == "warning") {

@@ -2,7 +2,7 @@
 #'
 #' Internal. This function is used to restore labels of a `safeframe` object
 #' which may have lost its labels after handling for example through `dplyr`
-#' verbs. Specific actions can be triggered when some of the labelled variables
+#' verbs. Specific actions can be triggered when some of the tagged variables
 #' have disappeared from the object.
 #'
 #' @param x a `data.frame`
@@ -12,7 +12,7 @@
 #' names with `x` to restore labels. Throws an error if no matches are found.
 #'
 #' @param lost_action a `character` indicating the behaviour to adopt when
-#'   labelled variables have been lost: "error" (default) will issue an error;
+#'   tagged variables have been lost: "error" (default) will issue an error;
 #'   "warning" will issue a warning; "none" will do nothing
 #'
 #' @noRd
@@ -40,7 +40,7 @@ restore_labels <- function(x, newLabels,
 
     lost_msg <- vars_labels(lost_vars, lost_labels)
     msg <- paste(
-      "The following labelled variables are lost:\n",
+      "The following tagged variables are lost:\n",
       lost_msg
     )
     if (lost_action == "warning") {

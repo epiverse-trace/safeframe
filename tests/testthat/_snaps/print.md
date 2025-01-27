@@ -54,7 +54,7 @@
     49    24  120
     50    25   85
     
-    labelled variables:
+    tagged variables:
      speed - Miles per hour
      dist - Distance in miles 
 
@@ -114,5 +114,5 @@
     49    24  120
     50    25   85
     
-    [no labelled variables]
+    [no tagged variables]
 

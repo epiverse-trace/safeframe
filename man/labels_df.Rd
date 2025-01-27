@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels_df.R
 \name{labels_df}
 \alias{labels_df}
-\title{Extract a data.frame of all labelled variables}
+\title{Extract a data.frame of all tagged variables}
 \usage{
 labels_df(x)
 }
@@ -13,7 +13,7 @@ labels_df(x)
 A \code{data.frame} of with variables renamed according to their labels.
 }
 \description{
-This function returns a \code{data.frame}, where labelled variables (as stored in
+This function returns a \code{data.frame}, where tagged variables (as stored in
 the \code{safeframe} object) are renamed. Note that the output is no longer a
 \code{safeframe}, but a regular \code{data.frame}. Unlabeled variables are unaffected.
 }

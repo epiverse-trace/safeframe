@@ -1,10 +1,10 @@
 # tests for [[<- operator
 
-    The following labelled variables are lost:
+    The following tagged variables are lost:
      speed - Miles per hour
 
 ---
 
-    The following labelled variables are lost:
+    The following tagged variables are lost:
      speed - Miles per hour
 

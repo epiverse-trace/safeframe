@@ -19,9 +19,9 @@ The function returns a \code{safeframe} object.
 }
 \description{
 This function converts a \code{data.frame} or a \code{tibble} into a \code{safeframe}
-object, where data are labelled and validated. The output will seem to be the
+object, where data are tagged and validated. The output will seem to be the
 same \code{data.frame}, but \code{safeframe}-aware packages will then be able to
-automatically use labelled fields for further data cleaning and analysis.
+automatically use tagged fields for further data cleaning and analysis.
 }
 \examples{
 
@@ -50,7 +50,7 @@ identical(x, new_x)
 \seealso{
 \itemize{
 \item An overview of the \link{safeframe} package
-\item \code{\link[=labels]{labels()}}: for a list of labelled variables in a \code{safeframe}
+\item \code{\link[=labels]{labels()}}: for a list of tagged variables in a \code{safeframe}
 \item \code{\link[=set_labels]{set_labels()}}: for modifying labels
 \item \code{\link[=labels_df]{labels_df()}}: for selecting variables by labels
 }

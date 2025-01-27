@@ -2,7 +2,7 @@
 #'
 #' The \pkg{safeframe} package provides tools to help label and validate data.
 #' The 'safeframe' class adds column level attributes to a 'data.frame'.
-#' Once labelled, variables can be seamlessly used in downstream analyses,
+#' Once tagged, variables can be seamlessly used in downstream analyses,
 #' making data pipelines more robust and reliable.
 #'
 #' @aliases safeframe
@@ -12,31 +12,31 @@
 #'   * [make_safeframe()]: to create `safeframe` objects from a `data.frame` or
 #'   a `tibble`
 #'
-#'   * [set_labels()]: to change or add labelled variables in a `safeframe`
+#'   * [set_labels()]: to change or add tagged variables in a `safeframe`
 #'
 #'   * [labels()]: to get the list of labels of a `safeframe`
 #'
 #'   * [labels_df()]: to get a `data.frame` of all tagged variables
 #'
-#'   * [lost_labels_action()]: to change the behaviour of actions where labelled
-#'   variables are lost (e.g removing columns storing labelled variables) to
+#'   * [lost_labels_action()]: to change the behaviour of actions where tagged
+#'   variables are lost (e.g removing columns storing tagged variables) to
 #'   issue warnings, errors, or do nothing
 #'
 #'   * [get_lost_labels_action()]: to check the current behaviour of actions
-#'   where labelled variables are lost
+#'   where tagged variables are lost
 #'
 #' @section Dedicated methods:
 #'
 #'   Specific methods commonly used to handle `data.frame` are provided for
 #'   `safeframe` objects, typically to help flag or prevent actions which could
-#'   alter or lose labelled variables (and may thus break downstream data
+#'   alter or lose tagged variables (and may thus break downstream data
 #'   pipelines).
 #'
 #'   * `names() <-` (and related functions, such as [dplyr::rename()]) will
 #'   rename labels as needed
 #'
 #'   * `x[...] <-` and `x[[...]] <-` (see [sub_safeframe]): will adopt the
-#'    desired behaviour when labelled variables are lost
+#'    desired behaviour when tagged variables are lost
 #'
 #'   * `print()`: prints info about the `safeframe` in addition to the
 #'   `data.frame` or `tibble`
@@ -54,7 +54,7 @@
 #' )
 #' x
 #'
-#' ## check labelled variables
+#' ## check tagged variables
 #' labels(x)
 #'
 #' ## robust renaming
@@ -92,7 +92,7 @@
 #'
 #'   head(x)
 #'
-#'   ## extract labelled variables
+#'   ## extract tagged variables
 #'   x %>%
 #'     select(has_label(c("Ticket yes/no")))
 #'

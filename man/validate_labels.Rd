@@ -37,6 +37,6 @@ validate_safeframe(x,
 )
 }
 \seealso{
-\code{\link[=validate_types]{validate_types()}} to check if labelled variables have
+\code{\link[=validate_types]{validate_types()}} to check if tagged variables have
 the right classes
 }

@@ -1,9 +1,9 @@
 #' Create a safeframe from a data.frame
 #'
 #' This function converts a `data.frame` or a `tibble` into a `safeframe`
-#' object, where data are labelled and validated. The output will seem to be the
+#' object, where data are tagged and validated. The output will seem to be the
 #' same `data.frame`, but `safeframe`-aware packages will then be able to
-#' automatically use labelled fields for further data cleaning and analysis.
+#' automatically use tagged fields for further data cleaning and analysis.
 #'
 #' @param x a `data.frame` or a `tibble`
 #'
@@ -15,7 +15,7 @@
 #' @seealso
 #'
 #' * An overview of the [safeframe] package
-#' * [labels()]: for a list of labelled variables in a `safeframe`
+#' * [labels()]: for a list of tagged variables in a `safeframe`
 #' * [set_labels()]: for modifying labels
 #' * [labels_df()]: for selecting variables by labels
 #'

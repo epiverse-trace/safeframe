@@ -8,7 +8,7 @@
 \description{
 The \pkg{safeframe} package provides tools to help label and validate data.
 The 'safeframe' class adds column level attributes to a 'data.frame'.
-Once labelled, variables can be seamlessly used in downstream analyses,
+Once tagged, variables can be seamlessly used in downstream analyses,
 making data pipelines more robust and reliable.
 }
 \note{
@@ -21,14 +21,14 @@ not preserve labels. We only provide compatibility for \code{\link[dplyr:rename]
 \itemize{
 \item \code{\link[=make_safeframe]{make_safeframe()}}: to create \code{safeframe} objects from a \code{data.frame} or
 a \code{tibble}
-\item \code{\link[=set_labels]{set_labels()}}: to change or add labelled variables in a \code{safeframe}
+\item \code{\link[=set_labels]{set_labels()}}: to change or add tagged variables in a \code{safeframe}
 \item \code{\link[=labels]{labels()}}: to get the list of labels of a \code{safeframe}
 \item \code{\link[=labels_df]{labels_df()}}: to get a \code{data.frame} of all tagged variables
-\item \code{\link[=lost_labels_action]{lost_labels_action()}}: to change the behaviour of actions where labelled
-variables are lost (e.g removing columns storing labelled variables) to
+\item \code{\link[=lost_labels_action]{lost_labels_action()}}: to change the behaviour of actions where tagged
+variables are lost (e.g removing columns storing tagged variables) to
 issue warnings, errors, or do nothing
 \item \code{\link[=get_lost_labels_action]{get_lost_labels_action()}}: to check the current behaviour of actions
-where labelled variables are lost
+where tagged variables are lost
 }
 }
 
@@ -37,13 +37,13 @@ where labelled variables are lost
 
 Specific methods commonly used to handle \code{data.frame} are provided for
 \code{safeframe} objects, typically to help flag or prevent actions which could
-alter or lose labelled variables (and may thus break downstream data
+alter or lose tagged variables (and may thus break downstream data
 pipelines).
 \itemize{
 \item \verb{names() <-} (and related functions, such as \code{\link[dplyr:rename]{dplyr::rename()}}) will
 rename labels as needed
 \item \verb{x[...] <-} and \verb{x[[...]] <-} (see \link{sub_safeframe}): will adopt the
-desired behaviour when labelled variables are lost
+desired behaviour when tagged variables are lost
 \item \code{print()}: prints info about the \code{safeframe} in addition to the
 \code{data.frame} or \code{tibble}
 }
@@ -58,7 +58,7 @@ x <- make_safeframe(cars[1:50, ],
 )
 x
 
-## check labelled variables
+## check tagged variables
 labels(x)
 
 ## robust renaming
@@ -96,7 +96,7 @@ if (require(dplyr) && require(magrittr)) {
 
   head(x)
 
-  ## extract labelled variables
+  ## extract tagged variables
   x \%>\%
     select(has_label(c("Ticket yes/no")))
 

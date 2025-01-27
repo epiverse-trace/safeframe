@@ -10,7 +10,7 @@
 #'
 #' @return If checks pass, a `safeframe` object; otherwise issues an error.
 #'
-#' @seealso [validate_types()] to check if labelled variables have
+#' @seealso [validate_types()] to check if tagged variables have
 #'   the right classes
 #'
 #' @examples

@@ -1,7 +1,7 @@
 #' Subsetting of safeframe objects
 #'
 #' The `[]` and `[[]]` operators for `safeframe` objects behaves like for
-#' regular `data.frame` or `tibble`, but check that labelled variables are not
+#' regular `data.frame` or `tibble`, but check that tagged variables are not
 #' lost, and takes the appropriate action if this is the case (warning, error,
 #' or ignore, depending on the general option set via [lost_labels_action()]) .
 #'
@@ -41,7 +41,7 @@
 #'     set_labels(result = "Ticket")
 #'   x
 #'
-#'   ## dangerous removal of a labelled column setting it to NULL issues warning
+#'   ## dangerous removal of a tagged column setting it to NULL issues warning
 #'   x[, 1] <- NULL
 #'   x
 #'
@@ -60,7 +60,7 @@
   # 1. that the subsetted object is still a `data.frame` or a `tibble`; if not,
   # we automatically drop the `safeframe` class and tags
   # 2. if the output is going to be a `safeframe` we need to restore previous
-  # labels with the appropriate behaviour in case of missing labelled variables
+  # labels with the appropriate behaviour in case of missing tagged variables
   #
   # Note that the [ operator's implementation is messy and does not seem to pass
   # the drop argument well when using NextMethod(); also it does not allow extra

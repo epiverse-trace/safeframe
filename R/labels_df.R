@@ -1,6 +1,6 @@
-#' Extract a data.frame of all labelled variables
+#' Extract a data.frame of all tagged variables
 #'
-#' This function returns a `data.frame`, where labelled variables (as stored in
+#' This function returns a `data.frame`, where tagged variables (as stored in
 #' the `safeframe` object) are renamed. Note that the output is no longer a
 #' `safeframe`, but a regular `data.frame`. Unlabeled variables are unaffected.
 #'
