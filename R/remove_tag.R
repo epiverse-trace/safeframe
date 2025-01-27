@@ -2,7 +2,7 @@
 #'
 #' @noRd
 #'
-remove_label <- function(x, var) {
+remove_tag <- function(x, var) {
   attr(x[[var]], "label") <- NULL
   x
 }

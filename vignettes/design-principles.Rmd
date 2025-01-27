@@ -24,7 +24,7 @@ None of the sections are required, feel free to remove any sections not relevant
 
 ## Scope
 
-**safeframe** provides generic labelling and validation tools. In contrast to the original versions of **linelist** (`<=v1.1.4`), safeframe functions at the variable level instead of the object level. 
+**safeframe** provides generic tagging and validation tools. In contrast to the original versions of **linelist** (`<=v1.1.4`), safeframe functions at the variable level instead of the object level. 
 
 The validation tooling is specific to type checking variables and providing feedback on potential data loss or coercion. It does not aim to do complex validations at this time.
 
@@ -38,14 +38,14 @@ We try to make function names as descriptive as possible, while keeping them sho
 
 Any data frame object can be passed into **safeframe**. Output from safeframe remains a data frame object, with an additional safeframe class attribute. This means it remains interoperable with all the regular data frame operations one may attempt to do. 
 
-**safeframe** is interoperable with pipes (that is, `|>` or `%>%`). This allows for easy chaining of functions. Note that there are no guarantees that label attributes are preserved when piping or wrangling in another way. For example, **dplyr** drops variable level attributes when using `dplyr::mutate()`.
+**safeframe** is interoperable with pipes (that is, `|>` or `%>%`). This allows for easy chaining of functions. Note that there are no guarantees that tags are preserved when piping or wrangling in another way. For example, **dplyr** drops variable level attributes when using `dplyr::mutate()`.
 
 ## Design decisions
 
-* **Generic**: The package is designed to be a generic tool for labelling and validating data. This is to ensure that the package can be used in a wide range of contexts and is not limited to a specific use case. Any specific use cases should be implemented in separate packages.
+* **Generic**: The package is designed to be a generic tool for tagging and validating data. This is to ensure that the package can be used in a wide range of contexts and is not limited to a specific use case. Any specific use cases should be implemented in separate packages.
 * **Local**: We keep functions as local as possible. This means operations should be as precise as is feasible, to be non-destructive and ensure changes on one variable do not unexpectedly affect another. This helps ensure the package is predictable and easy to use + maintain.
 * **Minimize number of functions**: We aim to keep the number of functions in the package to a minimum. This helps usability and maintainability.
-* **Base R**: We aim to use base R functions where possible. This is to ensure that the package is lightweight and does not have many dependencies. This is for example why we do not use **labelled** as the labelling package.
+* **Base R**: We aim to use base R functions where possible. This is to ensure that the package is lightweight and does not have many dependencies. This is for example why we do not use **labelled** as the tagging package.
 
 If you feel like we did not uphold one of these design decisions, please let us know 😊
 
@@ -53,14 +53,14 @@ If you feel like we did not uphold one of these design decisions, please let us 
 
 Any package development has quirks. We outline quirks we are aware of here:
 
-* Currently, emptying labels leads to setting them to `""` (empty character strings). Preferably we would end up setting them to `NULL` in the end.
+* Currently, emptying tags leads to setting them to `""` (empty character strings). Preferably we would end up setting them to `NULL` in the end.
 
 ## Dependencies
 
 * **checkmate** - provide assertions for function arguments
 * **lifecycle** - help manage function lifecycle
 * **rlang** - `...` to list parsing
-* **tidyselect** - ensure we can use pipes in `has_label()`
+* **tidyselect** - ensure we can use pipes in `has_tag()`
 
 ## Development journey
 

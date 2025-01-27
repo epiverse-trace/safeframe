@@ -14,8 +14,8 @@
 #' @return A named `list`.
 #'
 #' @seealso
-#' * [validate_labels()] to perform a series of checks on variables
-#' * [validate_safeframe()] to combine `validate_labels` and `validate_types`
+#' * [validate_tags()] to perform a series of checks on variables
+#' * [validate_safeframe()] to combine `validate_tags` and `validate_types`
 #'
 #' @examples
 #' x <- make_safeframe(cars,
@@ -56,7 +56,7 @@ validate_types <- function(x, ...) {
 
   if (!all(has_correct_types)) {
     stop(
-      "Some labels have the wrong class:\n",
+      "Some tags have the wrong class:\n",
       sprintf(
         "  - %s: %s\n",
         vars_to_check[!has_correct_types],

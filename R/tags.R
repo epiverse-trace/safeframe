@@ -1,32 +1,32 @@
-#' Get the list of labels in a safeframe
+#' Get the list of tags in a safeframe
 #'
-#' This function returns the list of labels identifying specific variable types
+#' This function returns the list of tags identifying specific variable types
 #' in a `safeframe` object.
 #'
 #' @param x a `safeframe` object
 #'
-#' @param show_null a `logical` indicating if the complete list of labels,
-#'   including `NULL` ones, should be returned; if `FALSE`, only labels with a
+#' @param show_null a `logical` indicating if the complete list of tags,
+#'   including `NULL` ones, should be returned; if `FALSE`, only tags with a
 #'   non-NULL value are returned; defaults to `FALSE`
 #'
 #' @export
 #'
 #' @return The function returns a named `list` where names indicate which column
-#' they correspond to, and values indicate the relevant labels.
+#' they correspond to, and values indicate the relevant tags.
 #'
-#' @details Labels are stored as the `label` attribute of the column variable.
+#' @details tags are stored as the `label` attribute of the column variable.
 #'
 #' @examples
 #'
 #' ## make a safeframe
 #' x <- make_safeframe(cars, speed = "Miles per hour")
 #'
-#' ## check non-null labels
-#' labels(x)
+#' ## check non-null tags
+#' tags(x)
 #'
-#' ## get a list of all labels, including NULL ones
-#' labels(x, TRUE)
-labels <- function(x, show_null = FALSE) {
+#' ## get a list of all tags, including NULL ones
+#' tags(x, TRUE)
+tags <- function(x, show_null = FALSE) {
   checkmate::assertClass(x, "safeframe")
   out <- lapply(names(x), FUN = function(var) {
     attr(x[[var]], "label")

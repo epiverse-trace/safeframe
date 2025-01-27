@@ -16,7 +16,7 @@ test_that("tests for the names<- operator", {
   names(x) <- c("titi", "toto")
   expect_named(x, c("titi", "toto"))
   expect_identical(
-    labels(x),
+    tags(x),
     list(titi = "Miles per hour", toto = "Distance in miles")
   )
   expect_s3_class(x, old_class)

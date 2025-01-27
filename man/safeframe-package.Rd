@@ -4,31 +4,31 @@
 \name{safeframe-package}
 \alias{safeframe-package}
 \alias{safeframe}
-\title{Base Tools for Labelling and Validating Data}
+\title{Base Tools for tagging and Validating Data}
 \description{
-The \pkg{safeframe} package provides tools to help label and validate data.
+The \pkg{safeframe} package provides tools to help tag and validate data.
 The 'safeframe' class adds column level attributes to a 'data.frame'.
-Once labelled, variables can be seamlessly used in downstream analyses,
+Once tagged, variables can be seamlessly used in downstream analyses,
 making data pipelines more robust and reliable.
 }
 \note{
 The package does not aim to have complete integration with \pkg{dplyr}
 functions. For example, \code{\link[dplyr:mutate]{dplyr::mutate()}} and \code{\link[dplyr:bind_rows]{dplyr::bind_rows()}} will
-not preserve labels. We only provide compatibility for \code{\link[dplyr:rename]{dplyr::rename()}}.
+not preserve tags. We only provide compatibility for \code{\link[dplyr:rename]{dplyr::rename()}}.
 }
 \section{Main functions}{
 
 \itemize{
 \item \code{\link[=make_safeframe]{make_safeframe()}}: to create \code{safeframe} objects from a \code{data.frame} or
 a \code{tibble}
-\item \code{\link[=set_labels]{set_labels()}}: to change or add labelled variables in a \code{safeframe}
-\item \code{\link[=labels]{labels()}}: to get the list of labels of a \code{safeframe}
-\item \code{\link[=labels_df]{labels_df()}}: to get a \code{data.frame} of all tagged variables
-\item \code{\link[=lost_labels_action]{lost_labels_action()}}: to change the behaviour of actions where labelled
-variables are lost (e.g removing columns storing labelled variables) to
+\item \code{\link[=set_tags]{set_tags()}}: to change or add tagged variables in a \code{safeframe}
+\item \code{\link[=tags]{tags()}}: to get the list of tags of a \code{safeframe}
+\item \code{\link[=tags_df]{tags_df()}}: to get a \code{data.frame} of all tagged variables
+\item \code{\link[=lost_tags_action]{lost_tags_action()}}: to change the behaviour of actions where tagged
+variables are lost (e.g removing columns storing tagged variables) to
 issue warnings, errors, or do nothing
-\item \code{\link[=get_lost_labels_action]{get_lost_labels_action()}}: to check the current behaviour of actions
-where labelled variables are lost
+\item \code{\link[=get_lost_tags_action]{get_lost_tags_action()}}: to check the current behaviour of actions
+where tagged variables are lost
 }
 }
 
@@ -37,13 +37,13 @@ where labelled variables are lost
 
 Specific methods commonly used to handle \code{data.frame} are provided for
 \code{safeframe} objects, typically to help flag or prevent actions which could
-alter or lose labelled variables (and may thus break downstream data
+alter or lose tagged variables (and may thus break downstream data
 pipelines).
 \itemize{
 \item \verb{names() <-} (and related functions, such as \code{\link[dplyr:rename]{dplyr::rename()}}) will
-rename labels as needed
+rename tags as needed
 \item \verb{x[...] <-} and \verb{x[[...]] <-} (see \link{sub_safeframe}): will adopt the
-desired behaviour when labelled variables are lost
+desired behaviour when tagged variables are lost
 \item \code{print()}: prints info about the \code{safeframe} in addition to the
 \code{data.frame} or \code{tibble}
 }
@@ -58,30 +58,30 @@ x <- make_safeframe(cars[1:50, ],
 )
 x
 
-## check labelled variables
-labels(x)
+## check tagged variables
+tags(x)
 
 ## robust renaming
 names(x)[1] <- "identifier"
 x
 
-## example of dropping labels by mistake - default: warning
+## example of dropping tags by mistake - default: warning
 x[, 2]
 
-## to silence warnings when labels are dropped
-lost_labels_action("none")
+## to silence warnings when tags are dropped
+lost_tags_action("none")
 x[, 2]
 
-## to trigger errors when labels are dropped
-# lost_labels_action("error")
+## to trigger errors when tags are dropped
+# lost_tags_action("error")
 # x[, 2:5]
 
 ## reset default behaviour
-lost_labels_action()
+lost_tags_action()
 
 # using tidyverse style
 
-## example of creating a safeframe, adding a new variable, and adding a label
+## example of creating a safeframe, adding a new variable, and adding a tag
 ## for it
 
 if (require(dplyr) && require(magrittr)) {
@@ -92,17 +92,17 @@ if (require(dplyr) && require(magrittr)) {
       dist = "Distance in miles"
     ) \%>\%
     mutate(result = if_else(speed > 50, "fast", "slow")) \%>\%
-    set_labels(result = "Ticket yes/no")
+    set_tags(result = "Ticket yes/no")
 
   head(x)
 
-  ## extract labelled variables
+  ## extract tagged variables
   x \%>\%
-    select(has_label(c("Ticket yes/no")))
+    select(has_tag(c("Ticket yes/no")))
 
-  ## Retrieve all labels
+  ## Retrieve all tags
   x \%>\%
-    labels()
+    tags()
 
   ## Select based on variable name
   x \%>\%

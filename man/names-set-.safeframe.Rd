@@ -39,6 +39,6 @@ if (require(dplyr) && require(magrittr)) {
   x <- x \%>\%
     rename(speed = "mph")
   head(x)
-  labels(x)
+  tags(x)
 }
 }

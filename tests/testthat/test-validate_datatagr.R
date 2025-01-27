@@ -22,6 +22,6 @@ test_that("tests for validate_safeframe", {
 
   # Functionalities
   x <- make_safeframe(cars)
-  msg <- "`x` has no labels"
+  msg <- "`x` has no tags"
   expect_error(validate_safeframe(x), msg)
 })

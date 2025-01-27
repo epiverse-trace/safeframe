@@ -33,17 +33,17 @@ print.safeframe <- function(x, ...) {
   cat("\n// safeframe object\n")
   print(drop_safeframe(x))
 
-  # Extract names and values from labels(x)
-  label_values <- unlist(labels(x))
-  label_names <- names(label_values)
+  # Extract names and values from tags(x)
+  tag_values <- unlist(tags(x))
+  tag_names <- names(tag_values)
 
-  # Construct the labels_txt string from the filtered pairs
-  labels_txt <- vars_labels(label_names, label_values)
+  # Construct the tags_txt string from the filtered pairs
+  tags_txt <- vars_tags(tag_names, tag_values)
 
-  if (labels_txt == "") {
-    cat("\n[no labelled variables]\n")
+  if (tags_txt == "") {
+    cat("\n[no tagged variables]\n")
   } else {
-    cat("\nlabelled variables:\n", labels_txt, "\n")
+    cat("\ntagged variables:\n", tags_txt, "\n")
   }
 
   invisible(x)

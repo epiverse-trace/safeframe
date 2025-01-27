@@ -1,9 +1,9 @@
 #' Subsetting of safeframe objects
 #'
 #' The `[]` and `[[]]` operators for `safeframe` objects behaves like for
-#' regular `data.frame` or `tibble`, but check that labelled variables are not
+#' regular `data.frame` or `tibble`, but check that tagged variables are not
 #' lost, and takes the appropriate action if this is the case (warning, error,
-#' or ignore, depending on the general option set via [lost_labels_action()]) .
+#' or ignore, depending on the general option set via [lost_tags_action()]) .
 #'
 #' @inheritParams base::Extract
 #' @param x a `safeframe` object
@@ -19,9 +19,9 @@
 #' @return If no drop is happening, a `safeframe`. Otherwise an atomic vector.
 #'
 #' @seealso
-#' * [lost_labels_action()] to set the behaviour to adopt when labels are
+#' * [lost_tags_action()] to set the behaviour to adopt when tags are
 #'   lost through subsetting; default is to issue a warning
-#' * [get_lost_labels_action()] to check the current the behaviour
+#' * [get_lost_tags_action()] to check the current the behaviour
 #'
 #' @export
 #'
@@ -38,10 +38,10 @@
 #'       dist = "Distance in miles"
 #'     ) %>%
 #'     mutate(result = if_else(speed > 50, "fast", "slow")) %>%
-#'     set_labels(result = "Ticket")
+#'     set_tags(result = "Ticket")
 #'   x
 #'
-#'   ## dangerous removal of a labelled column setting it to NULL issues warning
+#'   ## dangerous removal of a tagged column setting it to NULL issues warning
 #'   x[, 1] <- NULL
 #'   x
 #'
@@ -60,14 +60,14 @@
   # 1. that the subsetted object is still a `data.frame` or a `tibble`; if not,
   # we automatically drop the `safeframe` class and tags
   # 2. if the output is going to be a `safeframe` we need to restore previous
-  # labels with the appropriate behaviour in case of missing labelled variables
+  # tags with the appropriate behaviour in case of missing tagged variables
   #
   # Note that the [ operator's implementation is messy and does not seem to pass
   # the drop argument well when using NextMethod(); also it does not allow extra
   # args, in case we wanted to use them; so declassing the object instead using
   # the drop_safeframe() function
 
-  lost_action <- get_lost_labels_action()
+  lost_action <- get_lost_tags_action()
 
   # Handle the corner case where only 1 arg is passed (x[i]) to subset by column
   n_args <- nargs() - !missing(drop)
@@ -91,8 +91,8 @@
   }
 
   # Case 2
-  old_labels <- labels(x, show_null = FALSE)
-  out <- restore_labels(out, old_labels, lost_action)
+  old_tags <- tags(x, show_null = FALSE)
+  out <- restore_tags(out, old_tags, lost_action)
 
   out
 }
@@ -102,28 +102,28 @@
 #' @rdname sub_safeframe
 
 `[<-.safeframe` <- function(x, i, j, value) {
-  lost_action <- get_lost_labels_action()
-  old_labels <- labels(x, show_null = TRUE)
-  new_labels <- old_labels
+  lost_action <- get_lost_tags_action()
+  old_tags <- tags(x, show_null = TRUE)
+  new_tags <- old_tags
 
   # Handle different types of indexing
   if (missing(j)) {
     # Single index (e.g., x[1] <- value)
     if (!is.null(attr(value, "label"))) {
-      new_labels[[i]] <- attr(value, "label")
+      new_tags[[i]] <- attr(value, "label")
     }
   } else {
     # Row and column index (e.g., x[,1] <- value)
     if (!is.null(attr(value, "label"))) {
-      new_labels[[j]] <- attr(value, "label")
+      new_tags[[j]] <- attr(value, "label")
     }
   }
 
   class(x) <- setdiff(class(x), "safeframe")
   x <- NextMethod()
 
-  # Call restore_labels to restore the labels
-  x <- restore_labels(x, new_labels, lost_action)
+  # Call restore_tags to restore the tags
+  x <- restore_tags(x, new_tags, lost_action)
 
   x
 }
@@ -133,22 +133,22 @@
 #' @rdname sub_safeframe
 
 `[[<-.safeframe` <- function(x, i, j, value) {
-  lost_action <- get_lost_labels_action()
-  old_labels <- labels(x, show_null = TRUE)
-  new_labels <- old_labels
+  lost_action <- get_lost_tags_action()
+  old_tags <- tags(x, show_null = TRUE)
+  new_tags <- old_tags
 
   # Check if the assignment is to the "label" attribute
   if (missing(j) && !is.null(attr(value, "label"))) {
-    new_labels[[i]] <- attr(value, "label")
+    new_tags[[i]] <- attr(value, "label")
   }
 
-  lost_labels(old_labels, new_labels, lost_action)
+  lost_tags(old_tags, new_tags, lost_action)
 
   class(x) <- setdiff(class(x), "safeframe")
   x <- NextMethod()
 
-  # Call restore_labels to restore the labels
-  x <- restore_labels(x, new_labels, lost_action)
+  # Call restore_tags to restore the tags
+  x <- restore_tags(x, new_tags, lost_action)
 
   x
 }
@@ -158,22 +158,22 @@
 #'
 #' @rdname sub_safeframe
 `$<-.safeframe` <- function(x, name, value) {
-  lost_action <- get_lost_labels_action()
-  old_labels <- labels(x, show_null = TRUE)
-  new_labels <- old_labels
+  lost_action <- get_lost_tags_action()
+  old_tags <- tags(x, show_null = TRUE)
+  new_tags <- old_tags
 
   # Check if the assignment is to the "label" attribute
   if (is.null(attr(x[[name]], "label")) && !is.null(attr(value, "label"))) {
-    new_labels[[name]] <- attr(value, "label")
+    new_tags[[name]] <- attr(value, "label")
   }
 
-  lost_labels(old_labels, new_labels, lost_action)
+  lost_tags(old_tags, new_tags, lost_action)
 
   class(x) <- setdiff(class(x), "safeframe")
   x <- NextMethod()
 
-  # Call restore_labels to restore the labels
-  x <- restore_labels(x, new_labels, lost_action)
+  # Call restore_tags to restore the tags
+  x <- restore_tags(x, new_tags, lost_action)
 
   x
 }
