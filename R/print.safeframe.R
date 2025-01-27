@@ -35,10 +35,10 @@ print.safeframe <- function(x, ...) {
 
   # Extract names and values from tags(x)
   tag_values <- unlist(tags(x))
-  label_names <- names(tag_values)
+  tag_names <- names(tag_values)
 
   # Construct the tags_txt string from the filtered pairs
-  tags_txt <- vars_tags(label_names, tag_values)
+  tags_txt <- vars_tags(tag_names, tag_values)
 
   if (tags_txt == "") {
     cat("\n[no tagged variables]\n")
