@@ -93,7 +93,7 @@ None of the sections are required, feel free to remove any sections not relevant
 <div class="section level2">
 <h2 id="scope">Scope<a class="anchor" aria-label="anchor" href="#scope"></a>
 </h2>
-<p><strong>safeframe</strong> provides generic labelling and validation
+<p><strong>safeframe</strong> provides generic tagging and validation
 tools. In contrast to the original versions of <strong>linelist</strong>
 (<code>&lt;=v1.1.4</code>), safeframe functions at the variable level
 instead of the object level.</p>
@@ -122,10 +122,10 @@ safeframe class attribute. This means it remains interoperable with all
 the regular data frame operations one may attempt to do.</p>
 <p><strong>safeframe</strong> is interoperable with pipes (that is,
 <code>|&gt;</code> or <code>%&gt;%</code>). This allows for easy
-chaining of functions. Note that there are no guarantees that label
-attributes are preserved when piping or wrangling in another way. For
-example, <strong>dplyr</strong> drops variable level attributes when
-using <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>.</p>
+chaining of functions. Note that there are no guarantees that tags are
+preserved when piping or wrangling in another way. For example,
+<strong>dplyr</strong> drops variable level attributes when using
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="design-decisions">Design decisions<a class="anchor" aria-label="anchor" href="#design-decisions"></a>
@@ -133,10 +133,10 @@ using <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="e
 <ul>
 <li>
 <strong>Generic</strong>: The package is designed to be a generic
-tool for labelling and validating data. This is to ensure that the
-package can be used in a wide range of contexts and is not limited to a
-specific use case. Any specific use cases should be implemented in
-separate packages.</li>
+tool for tagging and validating data. This is to ensure that the package
+can be used in a wide range of contexts and is not limited to a specific
+use case. Any specific use cases should be implemented in separate
+packages.</li>
 <li>
 <strong>Local</strong>: We keep functions as local as possible. This
 means operations should be as precise as is feasible, to be
@@ -151,7 +151,7 @@ and maintainability.</li>
 <strong>Base R</strong>: We aim to use base R functions where
 possible. This is to ensure that the package is lightweight and does not
 have many dependencies. This is for example why we do not use
-<strong>labelled</strong> as the labelling package.</li>
+<strong>labelled</strong> as the tagging package.</li>
 </ul>
 <p>If you feel like we did not uphold one of these design decisions,
 please let us know 😊</p>
@@ -161,7 +161,7 @@ please let us know 😊</p>
 <p>Any package development has quirks. We outline quirks we are aware of
 here:</p>
 <ul>
-<li>Currently, emptying labels leads to setting them to <code>""</code>
+<li>Currently, emptying tags leads to setting them to <code>""</code>
 (empty character strings). Preferably we would end up setting them to
 <code>NULL</code> in the end.</li>
 </ul>
@@ -180,7 +180,7 @@ arguments</li>
 <strong>rlang</strong> - <code>...</code> to list parsing</li>
 <li>
 <strong>tidyselect</strong> - ensure we can use pipes in
-<code><a href="../reference/has_label.html">has_label()</a></code>
+<code><a href="../reference/has_tag.html">has_tag()</a></code>
 </li>
 </ul>
 </div>
