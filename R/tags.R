@@ -5,21 +5,19 @@
 #'
 #' @param x a `safeframe` object
 #'
-#' @param show_null a `logical` indicating if the complete list of tags,
-#'   including `NULL` ones, should be returned; if `FALSE`, only tags with a
-#'   non-NULL value are returned; defaults to `FALSE`
+#' @param show_null DEPRECATED
 #'
 #' @export
 #'
-#' @return The function returns a named `list` where names indicate which column
-#' they correspond to, and values indicate the relevant tags.
+#' @return The function returns a named `list` where names indicate generic
+#'   types of data, and values indicate which column they correspond to.
 #'
 #' @details tags are stored as the `label` attribute of the column variable.
 #'
 #' @examples
 #'
 #' ## make a safeframe
-#' x <- make_safeframe(cars, speed = "Miles per hour")
+#' x <- make_safeframe(cars, mph = "speed")
 #'
 #' ## check non-null tags
 #' tags(x)
@@ -27,16 +25,25 @@
 #' ## get a list of all tags, including NULL ones
 #' tags(x, TRUE)
 tags <- function(x, show_null = FALSE) {
+   if (show_null) {
+    msg <- 
+      "The 'show_null' argument is deprecated and is no longer functional."
+    warning(msg, call. = FALSE)
+    show_null <- FALSE
+  }
+
   checkmate::assertClass(x, "safeframe")
   out <- lapply(names(x), FUN = function(var) {
-    attr(x[[var]], "label")
+    tmpLabel <- attr(x[[var]], "label")
+    if (!is.null(tmpLabel)) {
+      return(setNames(list(var), tmpLabel))
+    } else {
+      return(NULL)
+    }
   })
-  names(out) <- names(x)
-
-  # Filter out NULL values if show_null is FALSE
-  if (!show_null) {
-    out <- Filter(Negate(is.null), out)
-  }
+  
+  # Flatten the list
+  out <- do.call(c, out)
 
   out
 }
