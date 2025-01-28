@@ -32,7 +32,6 @@ tags <- function(x, show_null = FALSE) {
     show_null <- FALSE
   }
 
-  checkmate::assertClass(x, "safeframe")
   out <- lapply(names(x), FUN = function(var) {
     tmpLabel <- attr(x[[var]], "label")
     if (!is.null(tmpLabel)) {
