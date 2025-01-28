@@ -4,7 +4,7 @@ test_that("tests tags", {
 
   # Check functionality
   expect_identical(tags(x), list(age = "speed"))
-  
+
   # tags() returns an empty named list, which we cannot compare to list()
   # directly.
   expect_identical(length(tags(make_safeframe(cars))), length(list()))

@@ -25,8 +25,8 @@
 #' ## get a list of all tags, including NULL ones
 #' tags(x, TRUE)
 tags <- function(x, show_null = FALSE) {
-   if (show_null) {
-    msg <- 
+  if (show_null) {
+    msg <-
       "The 'show_null' argument is deprecated and is no longer functional."
     warning(msg, call. = FALSE)
     show_null <- FALSE
@@ -41,7 +41,7 @@ tags <- function(x, show_null = FALSE) {
       return(NULL)
     }
   })
-  
+
   # Flatten the list
   out <- do.call(c, out)
 
