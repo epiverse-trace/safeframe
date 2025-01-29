@@ -1,11 +1,11 @@
 test_that("tests for restore_tags", {
   # These are now order dependent for the tests
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   y <- drop_safeframe(x)
   z <- y
   names(z) <- c("titi", "toto")
 
-  # Check error messages
+  # # Check error messages
   expect_error(
     restore_tags(z, tags(x)),
     "No matching tags provided."

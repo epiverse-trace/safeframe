@@ -38,16 +38,13 @@ tag_variables <- function(x, tags) {
   })
   checkmate::reportAssertions(tag_errors)
 
-  # Report back on the filled assertion collection
-  checkmate::reportAssertions(tag_errors)
-
   # Add the tags to the right location
   # Vectorized approach does not work, so we use a for.. loop instead
   for (tag in names(tags)) {
-    var <- tags[[names(tags) == tag]]
+    var <- tags[[tag]]
     if (is.null(var)) {
       # Find the relevant variable for the tag without a variable
-      removeVar <- tags(x)[names(tags(x)) == tag]
+      removeVar <- tags(x)[[tag]]
       if (length(removeVar) > 0) {
         # Remove the tag on the var
         x <- remove_tag(x, removeVar[[1]])
