@@ -141,3 +141,4 @@ test_that("no warnings when untagged columns are dropped - #55", {
 
   expect_silent(x[, "speed"])
 })
+

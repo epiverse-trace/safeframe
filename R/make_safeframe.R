@@ -7,10 +7,8 @@
 #'
 #' @param x a `data.frame` or a `tibble`
 #'
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> A named list with variable
-#' names in `x` as list names and the tags as list values. Values set to
-#' `NULL` remove the tag When specifying tags, please also see
-#' `default_values`.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> A series of tags provided as
+#'   `tag_name = "column_name"`
 #'
 #' @seealso
 #'
@@ -26,8 +24,8 @@
 #' @examples
 #'
 #' x <- make_safeframe(cars,
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #'
 #' ## print result - just first few entries
@@ -38,8 +36,8 @@
 #'
 #' ## tags can also be passed as a list with the splice operator (!!!)
 #' my_tags <- list(
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #' new_x <- make_safeframe(cars, !!!my_tags)
 #'
@@ -56,6 +54,6 @@ make_safeframe <- function(x,
   x <- tag_variables(x, tags)
 
   # shape output and return object
-  class(x) <- c("safeframe", class(x))
+  class(x) <- unique(c("safeframe", class(x)))
   x
 }

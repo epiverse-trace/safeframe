@@ -60,3 +60,11 @@ test_that("tag_variables() works with specification by position", {
     "lower than the number of columns"
   )
 })
+
+test_that("resetting tags to NULL", {
+  x <- tag_variables(cars, list(vitesse = 1, distance = 2))
+  expect_identical(tags(x), list(vitesse = "speed", distance = "dist"))
+
+  x <- tag_variables(x, list(vitesse = NULL))  
+  expect_null(attr(x$speed, "label"))
+})

@@ -40,19 +40,37 @@ tag_variables <- function(x, tags) {
 
   # Add the tags to the right location
   # Vectorized approach does not work, so we use a for.. loop instead
-  for (tag in names(tags)) {
-    var <- tags[[tag]]
-    if (is.null(var)) {
-      # Find the relevant variable for the tag without a variable
-      removeVar <- tags(x)[[tag]]
-      if (length(removeVar) > 0) {
-        # Remove the tag on the var
-        x <- remove_tag(x, removeVar[[1]])
-      }
-    } else {
-      attr(x[[var]], "label") <- tag
-    }
+  # for (tag in names(tags)) {
+  #   var <- tags[[tag]]
+  #   if (is.null(var)) {
+  #     # Find the relevant variable for the tag without a variable
+  #     removeVar <- tags(x)[[tag]]
+  #     if (length(removeVar) > 0) {
+  #       # Remove the tag on the var
+  #       x <- remove_tag(x, removeVar[[1]])
+  #     }
+  #   } else {
+  #     attr(x[[var]], "label") <- tag
+  #   }
+  # }
+
+  # Split tags into NULL and non-NULL cases
+  if (any(sapply(tags, is.null))) {
+    null_tags <- names(tags)[sapply(tags, is.null)]
+  } else { null_tags <- NULL }
+  non_null_tags <- names(tags)[!sapply(tags, is.null)]
+
+  # Handle NULL cases (tag removals)
+  if (length(null_tags) > 0) {
+    remove_vars <- unlist(tags(x)[null_tags])
+    x <- Reduce(remove_tag, remove_vars, init = x)
   }
 
+  # Handle non-NULL cases (setting labels)
+  if (length(non_null_tags) > 0) {
+    for (tag in non_null_tags) {
+      attr(x[[tags[[tag]]]], "label") <- tag
+    }
+  }
   x
 }
