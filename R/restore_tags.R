@@ -44,12 +44,17 @@ restore_tags <- function(x, tags,
     if (lost_action == "warning") {
       # nolint next: condition_call_linter.
       warning(warningCondition(msg, class = "safeframe_warning"))
+      
     }
     if (lost_action == "error") {
       # nolint next: condition_call_linter.
       stop(errorCondition(msg, class = "safeframe_error"))
     }
   }
+  # Get names that are in tags but not in lost_vars
+  remaining_names <- setdiff(names(tags), names(lost_vars))
+  # Subset tags with remaining names
+  tags <- tags[remaining_names]
   
   x <- tag_variables(x, tags)
 

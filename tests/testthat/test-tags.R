@@ -11,6 +11,8 @@ test_that("tests tags", {
 })
 
 test_that("tags() deprecation warnings", {
+  x <- make_safeframe(cars, age = "speed")
+  
   msg <- "The 'show_null' argument is deprecated and is no longer functional."
   expect_warning(tags(x, show_null = TRUE), msg)
 })
