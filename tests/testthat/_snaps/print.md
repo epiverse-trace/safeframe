@@ -55,8 +55,8 @@
     50    25   85
     
     tagged variables:
-     speed - Miles per hour
-     dist - Distance in miles 
+     mph - speed
+     distance - dist 
 
 ---
 
