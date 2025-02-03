@@ -43,6 +43,7 @@ tags <- function(x, show_null = FALSE) {
 
   # Flatten the list
   out <- do.call(c, out)
+  if (is.null(out)) out <- list()
 
   out
 }

@@ -15,8 +15,8 @@ test_that("tests for make_safeframe", {
   )
 
   # test functionalities
-  expect_null(
-    tags(make_safeframe(cars))
+  expect_identical(
+    tags(make_safeframe(cars)), list()
   )
 
   x <- make_safeframe(cars, distance = "dist", mph = "speed")
