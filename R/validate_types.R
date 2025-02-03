@@ -8,8 +8,8 @@
 #'
 #' @param x a `safeframe` object
 #'
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> A named list with variable
-#' names in `x` as list names and the related types as list values.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> A named list with tags in `x`
+#' as list names and the related types as list values.
 #'
 #' @return A named `list`.
 #'
@@ -19,8 +19,8 @@
 #'
 #' @examples
 #' x <- make_safeframe(cars,
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #' x
 #'
@@ -29,7 +29,7 @@
 #' tryCatch(validate_types(x), error = paste)
 #'
 #' ## to allow other types, e.g. gender to be integer, character or factor
-#' validate_types(x, speed = "numeric", dist = c(
+#' validate_types(x, mph = "numeric", distance = c(
 #'   "integer",
 #'   "character", "numeric"
 #' ))
@@ -37,16 +37,18 @@
 validate_types <- function(x, ...) {
   checkmate::assert_class(x, "safeframe")
   types <- rlang::list2(...)
+  checkmate::assert_subset(names(types), names(tags(x)))
+
   checkmate::assert_list(types, min.len = 1, types = "character")
 
-  vars_to_check <- intersect(names(x), names(types))
+  vars_to_check <- intersect(names(tags(x)), names(types))
 
   type_checks <- lapply(
     vars_to_check,
     function(var) {
       allowed_types <- types[[var]]
       checkmate::check_multi_class(
-        x[[var]],
+        x[[tags(x)[[var]]]],
         allowed_types,
         null.ok = TRUE
       )

@@ -28,8 +28,8 @@
 #' ## create a valid safeframe
 #' x <- cars |>
 #'   make_safeframe(
-#'     speed = "Miles per hour",
-#'     dist = "Distance in miles"
+#'     mph = "speed",
+#'     distance = "dist"
 #'   )
 #' x
 #'
@@ -50,6 +50,8 @@ validate_safeframe <- function(x,
   checkmate::assert_class(x, "safeframe")
   validate_tags(x)
   validate_types(x, ...)
-
-  x
+  
+  message("'", checkmate::vname(x), "' is a valid safeframe object")
+  
+  invisible(x)
 }

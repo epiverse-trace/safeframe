@@ -7,31 +7,36 @@ test_that("tests for validate_types() basic input checking", {
 
 test_that("validate_types() validates types", {
   # Successful validations
-  x <- make_safeframe(cars, speed = "Miles per hour")
-  expect_silent(
-    expect_identical(
-      x,
-      validate_types(x, speed = "numeric")
-    )
+  x <- make_safeframe(cars, mph = "speed")
+  expect_identical(
+    x,
+    validate_types(x, mph = "numeric")
   )
-
+  
   # Failed validations
-  x <- make_safeframe(cars, speed = "Miles per hour")
+  x <- make_safeframe(cars, mph = "speed")
   expect_error(
-    validate_types(x, speed = "factor"),
-    "speed: Must inherit from class 'factor', but has class 'numeric'"
+    validate_types(x, mph = "factor"),
+    "mph: Must inherit from class 'factor', but has class 'numeric'"
   )
-
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   expect_snapshot_error(
-    validate_types(x, speed = "factor", dist = "character")
+    validate_types(x, mph = "factor", distance = "character")
   )
 })
 
 test_that("ensure validate_types throws error if no types provided", {
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   expect_error(
     validate_types(x),
     "Assertion on 'types' failed: Must have length >= 1, but has length 0."
+  )
+})
+
+test_that("validate_types fails if types are provided for non-existent tags", {
+  x <- make_safeframe(cars, mph = "speed")
+  expect_error(
+    validate_types(x, distance = 'numeric')
   )
 })
