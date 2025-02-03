@@ -24,8 +24,8 @@ library(dplyr)
 
 x <- make_safeframe(
   cars,
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 
 head(x)
@@ -56,7 +56,7 @@ x %>%
 
 ```{r}
 x %>%
-  filter(speed >= 50) %>%
+  filter(speed >= 5) %>%
   head()
 ```
 
@@ -114,7 +114,7 @@ x %>%
 
 ### `dplyr::pull()` ✅
 
-`dplyr::pull()` returns a vector, which results, as expected, in the loss of the safeframe class and tags:
+`dplyr::pull()` returns a vector, which maintains the tag but result in loss of the safeframe class:
 
 ```{r}
 x %>%
@@ -132,7 +132,7 @@ x %>%
 
 ### `dplyr::rename()` & `dplyr::rename_with()` ✅
 
-`dplyr::rename()` is fully compatible out-of-the-box with safeframe, meaning that tags will be updated at the same time that columns are renamed. This is possibly because it uses `names<-()` under the hood, which safeframe provides a custom `names<-.safeframe()` method for:
+`dplyr::rename()` is fully compatible out-of-the-box with safeframe, meaning that tags will be updated at the same time that columns are renamed.
 
 ```{r}
 x %>%
