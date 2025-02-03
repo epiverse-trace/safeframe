@@ -12,8 +12,8 @@
 #'
 #' @examples
 #' x <- make_safeframe(cars,
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #'
 #' validate_types(
