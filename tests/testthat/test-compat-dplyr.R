@@ -1,6 +1,6 @@
 skip_if_not_installed("dplyr")
 
-x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+x <- make_safeframe(cars, mph = "speed", distance = "dist")
 
 # Rows ----
 
@@ -94,7 +94,7 @@ test_that("Compatibility with dplyr::relocate()", {
 test_that("Compatibility with dplyr::rename()", {
   expect_identical(
     tags(dplyr::rename(x, toto = dist)),
-    list(speed = "Miles per hour", toto = "Distance in miles")
+    list(mph = "speed", distance = "toto")
   )
 
   # Identity
@@ -132,7 +132,7 @@ test_that("Compatibility with dplyr::select()", {
     dplyr::select("dist") %>%
     expect_s3_class("safeframe") %>%
     tags() %>%
-    expect_identical(list(dist = "Distance in miles")) %>%
+    expect_identical(list(distance = "dist")) %>%
     expect_snapshot_warning()
 
   # Even when renames happen
@@ -141,8 +141,8 @@ test_that("Compatibility with dplyr::select()", {
     expect_s3_class("safeframe") %>%
     tags() %>%
     expect_identical(list(
-      dist = "Distance in miles",
-      vitesse = "Miles per hour"
+      distance = "dist",
+      mph = "vitesse"
     ))
 })
 
