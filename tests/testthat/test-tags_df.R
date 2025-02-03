@@ -1,11 +1,11 @@
 test_that("tests for tags_df without untagged variables", {
   # These are now order dependent for the tests
   x <- make_safeframe(cars,
-    speed = "Miles per hour",
-    dist = "Distance in miles"
+    mph = "speed",
+    distance = "dist"
   )
   y <- cars[c("speed", "dist")]
-  names(y) <- c("Miles per hour", "Distance in miles")
+  names(y) <- c("mph", "distance")
 
   # errors
   msg <- "Must inherit from class 'safeframe', but has class 'data.frame'."
@@ -18,10 +18,10 @@ test_that("tests for tags_df without untagged variables", {
 
 test_that("tags_df with untagged variables works as expected", {
   x <- make_safeframe(cars,
-    dist = "Distance in miles"
+    distance = "dist"
   )
   y <- cars[c("speed", "dist")]
-  names(y) <- c("speed", "Distance in miles")
+  names(y) <- c("speed", "distance")
 
   expect_identical(tags_df(x), y)
 })
