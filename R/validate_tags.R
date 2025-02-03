@@ -17,8 +17,8 @@
 #' ## create a valid safeframe
 #' x <- cars |>
 #'   make_safeframe(
-#'     speed = "Miles per hour",
-#'     dist = "Distance in miles"
+#'     mph = "speed",
+#'     distance = "dist"
 #'   )
 #' x
 #'
@@ -33,7 +33,7 @@
 #' )
 validate_tags <- function(x) {
   checkmate::assert_class(x, "safeframe")
-  x_tags <- tags(x, show_null = TRUE)
+  x_tags <- tags(x)
 
   if (is.null(unlist(x_tags))) stop("`x` has no tags")
 
