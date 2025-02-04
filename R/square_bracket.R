@@ -37,7 +37,7 @@
 #'       mph = "speed",
 #'       distance = "dist"
 #'     ) %>%
-#'     mutate(result = if_else(mph > 50, "fast", "slow")) %>%
+#'     mutate(result = if_else(speed > 50, "fast", "slow")) %>%
 #'     set_tags(ticket = "result")
 #'   x
 #'
@@ -48,7 +48,7 @@
 #'   x[[2]] <- NULL
 #'   x
 #'
-#'   x$age <- NULL
+#'   x$speed <- NULL
 #'   x
 #' }
 `[.safeframe` <- function(x, i, j, drop = FALSE) {
@@ -106,7 +106,7 @@
   out <- NextMethod()
   old_tags <- tags(x)
   out <- restore_tags(out, old_tags, lost_action)
-  
+
   out
 }
 
@@ -118,7 +118,7 @@
   lost_action <- get_lost_tags_action()
   old_tags <- tags(x)
   new_tags <- old_tags
-  
+
   lost_tags(old_tags, new_tags, lost_action)
 
   class(x) <- setdiff(class(x), "safeframe")

@@ -4,7 +4,7 @@ test_that("tests for set_tags()", {
   # Check error messages
   msg <- "Must inherit from class 'safeframe', but has class 'data.frame'."
   expect_error(set_tags(cars), msg)
-  
+
   msg <- "Must be element of set {'speed','dist'}, but is"
   expect_error(set_tags(x, outcome = "toto"), msg, fixed = TRUE)
 

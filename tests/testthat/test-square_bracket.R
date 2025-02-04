@@ -86,11 +86,11 @@ test_that("tests for [[<- operator", {
   x <- make_safeframe(cars, mph = "speed", distance = "dist")
   msg <- "The following tagged variables are lost:\n speed - mph"
   expect_warning(x[[1]] <- NULL, msg)
-  
+
   lost_tags_action("error", quiet = TRUE)
   x <- make_safeframe(cars, mph = "speed", distance = "dist")
   expect_error(x[[1]] <- NULL, msg)
-  
+
   # functionalities
   x <- make_safeframe(cars, mph = "speed", distance = "dist")
   x[[1]] <- 1L
@@ -141,4 +141,3 @@ test_that("no warnings when untagged columns are dropped - #55", {
 
   expect_silent(x[, "speed"])
 })
-

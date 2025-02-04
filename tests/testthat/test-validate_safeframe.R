@@ -31,13 +31,14 @@ test_that("validate_safeframe() allows valid objects", {
 
   # Print a message
   expect_message(
-    validate_safeframe(x, id = 'numeric'),
+    validate_safeframe(x, id = "numeric"),
     "valid"
   )
 
   # And returns invisibly...
   v <- suppressMessages(expect_invisible(
-    validate_safeframe(x, id = 'numeric')))
+    validate_safeframe(x, id = "numeric")
+  ))
 
   # ...an identical object
   expect_identical(x, v)

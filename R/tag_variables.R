@@ -38,27 +38,14 @@ tag_variables <- function(x, tags) {
   })
   checkmate::reportAssertions(tag_errors)
 
-  # Add the tags to the right location
-  # Vectorized approach does not work, so we use a for.. loop instead
-  # for (tag in names(tags)) {
-  #   var <- tags[[tag]]
-  #   if (is.null(var)) {
-  #     # Find the relevant variable for the tag without a variable
-  #     removeVar <- tags(x)[[tag]]
-  #     if (length(removeVar) > 0) {
-  #       # Remove the tag on the var
-  #       x <- remove_tag(x, removeVar[[1]])
-  #     }
-  #   } else {
-  #     attr(x[[var]], "label") <- tag
-  #   }
-  # }
-
   # Split tags into NULL and non-NULL cases
-  if (any(sapply(tags, is.null))) {
-    null_tags <- names(tags)[sapply(tags, is.null)]
-  } else { null_tags <- NULL }
-  non_null_tags <- names(tags)[!sapply(tags, is.null)]
+  nullIndex <- vapply(tags, is.null, FUN.VALUE = logical(1))
+  if (any(nullIndex)) {
+    null_tags <- names(tags)[nullIndex]
+  } else {
+    null_tags <- NULL
+  }
+  non_null_tags <- names(tags)[!nullIndex]
 
   # Handle NULL cases (tag removals)
   if (length(null_tags) > 0) {

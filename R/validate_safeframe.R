@@ -35,23 +35,23 @@
 #'
 #' ## validation
 #' validate_safeframe(x,
-#'   speed = c("numeric", "factor"),
-#'   dist = "numeric"
+#'   mph = c("numeric", "factor"),
+#'   distance = "numeric"
 #' )
 #'
 #' ## the below issues an error
 #' ## note: tryCatch is only used to avoid a genuine error in the example
 #' tryCatch(validate_safeframe(x,
-#'   speed = c("numeric", "factor"),
-#'   dist = "factor"
+#'   mph = c("numeric", "factor"),
+#'   distance = "factor"
 #' ), error = paste)
 validate_safeframe <- function(x,
                                ...) {
   checkmate::assert_class(x, "safeframe")
   validate_tags(x)
   validate_types(x, ...)
-  
+
   message("'", checkmate::vname(x), "' is a valid safeframe object")
-  
+
   invisible(x)
 }

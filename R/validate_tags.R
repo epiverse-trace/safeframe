@@ -28,8 +28,8 @@
 #'
 #' ## validation requires you to specify the types directly
 #' validate_safeframe(x,
-#'   speed = c("integer", "numeric"),
-#'   dist = "numeric"
+#'   mph = c("integer", "numeric"),
+#'   distance = "numeric"
 #' )
 validate_tags <- function(x) {
   checkmate::assert_class(x, "safeframe")

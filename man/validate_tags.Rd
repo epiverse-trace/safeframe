@@ -21,8 +21,8 @@ checking that: i) tags are present ii) tags is a \code{list} of \code{character}
 ## create a valid safeframe
 x <- cars |>
   make_safeframe(
-    speed = "Miles per hour",
-    dist = "Distance in miles"
+    mph = "speed",
+    distance = "dist"
   )
 x
 
@@ -32,8 +32,8 @@ tryCatch(validate_safeframe(x), error = paste)
 
 ## validation requires you to specify the types directly
 validate_safeframe(x,
-  speed = c("integer", "numeric"),
-  dist = "numeric"
+  mph = c("integer", "numeric"),
+  distance = "numeric"
 )
 }
 \seealso{

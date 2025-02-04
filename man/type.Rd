@@ -20,14 +20,14 @@ These can be used to provide comprehensive typesetting when creating a
 }
 \examples{
 x <- make_safeframe(cars,
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 
 validate_types(
   x,
-  speed = type("numeric"),
-  dist = "numeric"
+  mph = type("numeric"),
+  distance = "numeric"
 )
 
 }

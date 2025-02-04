@@ -35,7 +35,9 @@ tags <- function(x, show_null = FALSE) {
   out <- lapply(names(x), FUN = function(var) {
     tmpLabel <- attr(x[[var]], "label")
     if (!is.null(tmpLabel)) {
-      return(setNames(list(var), tmpLabel))
+      tmpVar <- list(var)
+      names(tmpVar) <- tmpLabel
+      return(tmpVar)
     } else {
       return(NULL)
     }

@@ -24,18 +24,18 @@ restore_tags <- function(x, tags,
   checkmate::assertClass(x, "data.frame")
   checkmate::assertClass(tags, "list")
   lost_action <- match.arg(lost_action)
-  
+
   # Match the remaining variables to the provided tags
   common_vars <- intersect(names(x), tags)
   if (length(common_vars) == 0 && length(names(x)) > 0) {
     stop("No matching tags provided.")
   }
-  
+
   lost_vars <- setdiff(tags, names(x))
-  
+
   if (lost_action != "none" && length(lost_vars) > 0) {
     lost_tags <- names(lost_vars)
-    
+
     lost_msg <- vars_tags(lost_vars, lost_tags)
     msg <- paste(
       "The following tagged variables are lost:\n",
@@ -44,7 +44,6 @@ restore_tags <- function(x, tags,
     if (lost_action == "warning") {
       # nolint next: condition_call_linter.
       warning(warningCondition(msg, class = "safeframe_warning"))
-      
     }
     if (lost_action == "error") {
       # nolint next: condition_call_linter.
@@ -55,7 +54,7 @@ restore_tags <- function(x, tags,
   remaining_names <- setdiff(names(tags), names(lost_vars))
   # Subset tags with remaining names
   tags <- tags[remaining_names]
-  
+
   x <- tag_variables(x, tags)
 
   # Ensure class consistency
