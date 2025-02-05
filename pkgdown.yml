@@ -4,7 +4,7 @@ pkgdown_sha: 18cca452d736fea33d47b19b4ef4973db9104a75
 articles:
   compat-dplyr: compat-dplyr.html
   design-principles: design-principles.html
-last_built: 2025-02-05T10:35Z
+last_built: 2025-02-05T12:23Z
 urls:
   reference: https://epiverse-trace.github.io/safeframe/reference
   article: https://epiverse-trace.github.io/safeframe/articles
