@@ -9,8 +9,8 @@ validate_safeframe(x, ...)
 \arguments{
 \item{x}{a \code{safeframe} object}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A named list with variable
-names in \code{x} as list names and the related types as list values.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A named list with tags in \code{x}
+as list names and the related types as list values.}
 }
 \value{
 If checks pass, a \code{safeframe} object; otherwise issues an error.
@@ -34,22 +34,22 @@ The following checks are performed:
 ## create a valid safeframe
 x <- cars |>
   make_safeframe(
-    speed = "Miles per hour",
-    dist = "Distance in miles"
+    mph = "speed",
+    distance = "dist"
   )
 x
 
 ## validation
 validate_safeframe(x,
-  speed = c("numeric", "factor"),
-  dist = "numeric"
+  mph = c("numeric", "factor"),
+  distance = "numeric"
 )
 
 ## the below issues an error
 ## note: tryCatch is only used to avoid a genuine error in the example
 tryCatch(validate_safeframe(x,
-  speed = c("numeric", "factor"),
-  dist = "factor"
+  mph = c("numeric", "factor"),
+  distance = "factor"
 ), error = paste)
 }
 \seealso{

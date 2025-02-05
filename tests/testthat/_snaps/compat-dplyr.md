@@ -1,16 +1,16 @@
 # Compatibility with dplyr::transmute()
 
     The following tagged variables are lost:
-     speed - Miles per hour
-     dist - Distance in miles
+     speed - mph
+     dist - distance
 
 # Compatibility with dplyr::mutate(.keep)
 
     The following tagged variables are lost:
-     speed - Miles per hour
+     speed - mph
 
 # Compatibility with dplyr::select()
 
     The following tagged variables are lost:
-     speed - Miles per hour
+     speed - mph
 

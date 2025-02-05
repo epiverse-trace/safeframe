@@ -52,11 +52,11 @@ if (require(dplyr) && require(magrittr)) {
   ## create a safeframe
   x <- cars \%>\%
     make_safeframe(
-      speed = "Miles per hour",
-      dist = "Distance in miles"
+      mph = "speed",
+      distance = "dist"
     ) \%>\%
     mutate(result = if_else(speed > 50, "fast", "slow")) \%>\%
-    set_tags(result = "Ticket")
+    set_tags(ticket = "result")
   x
 
   ## dangerous removal of a tagged column setting it to NULL issues warning
@@ -66,7 +66,7 @@ if (require(dplyr) && require(magrittr)) {
   x[[2]] <- NULL
   x
 
-  x$age <- NULL
+  x$speed <- NULL
   x
 }
 }

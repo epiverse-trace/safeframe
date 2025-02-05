@@ -13,8 +13,8 @@
 #' @examples
 #'
 #' x <- make_safeframe(cars,
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #'
 #' ## get a data.frame with variables renamed based on tags
@@ -22,11 +22,18 @@
 tags_df <- function(x) {
   checkmate::assertClass(x, "safeframe")
 
-  tags <- unlist(tags(x))
+  tags <- tags(x)
   out <- drop_safeframe(x)
 
-  # Replace the names of out that are in intersection with corresponding tags
-  names(out)[match(names(tags), names(out))] <- tags[names(tags)]
+  # Find which tagged variables exist in names(out)
+  matching_vars <- intersect(unlist(tags), names(out))
+
+  # Create name mapping (old name -> new name)
+  name_mapping <- names(tags)[match(matching_vars, tags)]
+  names(name_mapping) <- matching_vars
+
+  # Replace matching names
+  names(out)[names(out) %in% matching_vars] <- name_mapping[matching_vars]
 
   out
 }

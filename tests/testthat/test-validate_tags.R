@@ -11,6 +11,6 @@ test_that("tests for validate_tags", {
   x <- make_safeframe(cars)
   expect_error(validate_tags(x))
 
-  x <- set_tags(x, dist = "Distance in miles", speed = "Miles per hour")
+  x <- set_tags(x, mph = "speed", distance = "dist")
   expect_identical(x, validate_tags(x))
 })

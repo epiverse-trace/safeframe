@@ -20,8 +20,8 @@ This function prints safeframe objects.
 \examples{
 ## create safeframe
 x <- make_safeframe(cars,
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 
 ## print object - using only the first few entries
@@ -32,8 +32,8 @@ if (require(tibble) && require(magrittr)) {
   cars \%>\%
     tibble() \%>\%
     make_safeframe(
-      speed = "Miles per hour",
-      dist = "Distance in miles"
+      mph = "speed",
+      distance = "dist"
     )
 }
 }

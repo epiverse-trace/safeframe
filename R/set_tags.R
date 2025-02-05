@@ -14,16 +14,16 @@
 #' @examples
 #'
 #' ## create a safeframe
-#' x <- make_safeframe(cars, speed = "Miles per hour")
+#' x <- make_safeframe(cars, mph = "speed")
 #' tags(x)
 #'
 #' ## add new tags and fix an existing one
-#' x <- set_tags(x, dist = "Distance")
+#' x <- set_tags(x, distance = "dist")
 #' tags(x)
 #'
 #' ## remove tags by setting them to NULL
 #' old_tags <- tags(x)
-#' x <- set_tags(x, speed = NULL, dist = NULL)
+#' x <- set_tags(x, mph = NULL, distance = NULL)
 #' tags(x)
 #'
 #' ## setting tags providing a list (used to restore old tags here)
@@ -32,6 +32,7 @@
 set_tags <- function(x, ...) {
   # assert inputs
   checkmate::assertClass(x, "safeframe")
+
   orig_class <- class(x)
 
   # For some reason, we cannot remove tags from safeframe objects by setting
@@ -42,11 +43,13 @@ set_tags <- function(x, ...) {
   # 3. readding the tags and the safeframe class
 
   new_tags <- rlang::list2(...)
-  existing_tags <- tags(x)
+  old_tags <- tags(x)
+  x <- drop_safeframe(x)
 
-  x <- drop_safeframe(x, remove_tags = TRUE)
-
-  x <- tag_variables(x, utils::modifyList(existing_tags, new_tags))
+  x <- tag_variables(
+    x,
+    utils::modifyList(old_tags, new_tags, keep.null = TRUE)
+  )
 
   class(x) <- orig_class
 

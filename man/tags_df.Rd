@@ -20,8 +20,8 @@ the \code{safeframe} object) are renamed. Note that the output is no longer a
 \examples{
 
 x <- make_safeframe(cars,
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 
 ## get a data.frame with variables renamed based on tags

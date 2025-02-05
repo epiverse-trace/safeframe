@@ -9,10 +9,8 @@ make_safeframe(x, ...)
 \arguments{
 \item{x}{a \code{data.frame} or a \code{tibble}}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A named list with variable
-names in \code{x} as list names and the tags as list values. Values set to
-\code{NULL} remove the tag When specifying tags, please also see
-\code{default_values}.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A series of tags provided as
+\code{tag_name = "column_name"}}
 }
 \value{
 The function returns a \code{safeframe} object.
@@ -26,8 +24,8 @@ automatically use tagged fields for further data cleaning and analysis.
 \examples{
 
 x <- make_safeframe(cars,
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 
 ## print result - just first few entries
@@ -38,8 +36,8 @@ tags(x)
 
 ## tags can also be passed as a list with the splice operator (!!!)
 my_tags <- list(
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 new_x <- make_safeframe(cars, !!!my_tags)
 
