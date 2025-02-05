@@ -31,8 +31,9 @@ restore_tags <- function(x, tags,
     stop("No matching tags provided.")
   }
 
-  lost_vars <- setdiff(tags, names(x))
-
+  # We do not use setdiff because R has become inconsistent for our purposes
+  # Since https://github.com/wch/r-source/commit/6dedb304cfd66f0e5775cdd5c0bae6340ac48e84 # nolint: line_length_linter.
+  lost_vars <- tags[!unlist(tags) %in% names(x)]
   if (lost_action != "none" && length(lost_vars) > 0) {
     lost_tags <- names(lost_vars)
 
