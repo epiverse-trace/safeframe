@@ -54,6 +54,6 @@ make_safeframe <- function(x,
   x <- tag_variables(x, tags)
 
   # shape output and return object
-  class(x) <- unique(c("safeframe", class(x)))
+  class(x) <- c("safeframe", class(x))
   x
 }
