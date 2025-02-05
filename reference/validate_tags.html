@@ -87,8 +87,8 @@ the right classes</p></div>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## create a valid safeframe</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">cars</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="make_safeframe.html">make_safeframe</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    speed <span class="op">=</span> <span class="st">"Miles per hour"</span>,</span></span>
-<span class="r-in"><span>    dist <span class="op">=</span> <span class="st">"Distance in miles"</span></span></span>
+<span class="r-in"><span>    mph <span class="op">=</span> <span class="st">"speed"</span>,</span></span>
+<span class="r-in"><span>    distance <span class="op">=</span> <span class="st">"dist"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -146,8 +146,8 @@ the right classes</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 50    25   85</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> tagged variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  speed - Miles per hour</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  dist - Distance in miles </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  mph - speed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  distance - dist </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## the below issues an error as safeframe doesn't know any defaults</span></span></span>
 <span class="r-in"><span><span class="co">## note: tryCatch is only used to avoid a genuine error in the example</span></span></span>
@@ -156,66 +156,10 @@ the right classes</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## validation requires you to specify the types directly</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="validate_safeframe.html">validate_safeframe</a></span><span class="op">(</span><span class="va">x</span>,</span></span>
-<span class="r-in"><span>  speed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="st">"numeric"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  dist <span class="op">=</span> <span class="st">"numeric"</span></span></span>
+<span class="r-in"><span>  mph <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="st">"numeric"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="st">"numeric"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> // safeframe object</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    speed dist</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      4    2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      4   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      7    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      7   22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      8   16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      9   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     10   18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     10   26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     10   34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    11   17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    11   28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    12   14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    12   20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    12   24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    12   28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16    13   26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    13   34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    13   34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19    13   46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20    14   26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21    14   36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22    14   60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23    14   80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24    15   20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    15   26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26    15   54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27    16   32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28    16   40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29    17   32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30    17   40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31    17   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32    18   42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33    18   56</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34    18   76</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35    18   84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36    19   36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37    19   46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38    19   68</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39    20   32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40    20   48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41    20   52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42    20   56</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43    20   64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44    22   66</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45    23   54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46    24   70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47    24   92</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48    24   93</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49    24  120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50    25   85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tagged variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  speed - Miles per hour</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  dist - Distance in miles </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 'x' is a valid safeframe object</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

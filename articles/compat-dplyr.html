@@ -101,8 +101,8 @@ compatibility with the tidyverse. All dplyr verbs are tested in the
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_safeframe.html">make_safeframe</a></span><span class="op">(</span></span>
 <span>  <span class="va">cars</span>,</span>
-<span>  speed <span class="op">=</span> <span class="st">"Miles per hour"</span>,</span>
-<span>  dist <span class="op">=</span> <span class="st">"Distance in miles"</span></span>
+<span>  mph <span class="op">=</span> <span class="st">"speed"</span>,</span>
+<span>  distance <span class="op">=</span> <span class="st">"dist"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -117,8 +117,8 @@ compatibility with the tidyverse. All dplyr verbs are tested in the
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="verbs-operating-on-rows">Verbs operating on rows<a class="anchor" aria-label="anchor" href="#verbs-operating-on-rows"></a>
 </h2>
@@ -146,8 +146,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dplyrdistinct">
@@ -168,8 +168,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dplyrfilter">
@@ -177,16 +177,21 @@ its tags are conserved through dplyr operations on rows.</p>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speed</span> <span class="op">&gt;=</span> <span class="fl">50</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speed</span> <span class="op">&gt;=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; // safeframe object</span></span>
-<span><span class="co">#&gt; [1] speed dist </span></span>
-<span><span class="co">#&gt; &lt;0 rows&gt; (or 0-length row.names)</span></span>
+<span><span class="co">#&gt;   speed dist</span></span>
+<span><span class="co">#&gt; 1     7    4</span></span>
+<span><span class="co">#&gt; 2     7   22</span></span>
+<span><span class="co">#&gt; 3     8   16</span></span>
+<span><span class="co">#&gt; 4     9   10</span></span>
+<span><span class="co">#&gt; 5    10   18</span></span>
+<span><span class="co">#&gt; 6    10   26</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dplyrslice">
@@ -206,8 +211,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 6    11   17</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
@@ -221,8 +226,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 5     8   16</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_tail</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
@@ -236,8 +241,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 5    25   85</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">speed</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
@@ -250,8 +255,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 4     7   22</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max</a></span><span class="op">(</span><span class="va">speed</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
@@ -265,8 +270,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 5    24  120</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
@@ -280,8 +285,8 @@ its tags are conserved through dplyr operations on rows.</p>
 <span><span class="co">#&gt; 5    19   68</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -321,8 +326,8 @@ same way a data.frame would:</p>
 <span><span class="co">#&gt; 6    19   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="co"># New columns don't affect existing tags</span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -339,15 +344,15 @@ same way a data.frame would:</p>
 <span><span class="co">#&gt; 6     9   10  FALSE</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="co"># .keep = "unused" generate expected tag loss conditions</span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>edad <span class="op">=</span> <span class="va">speed</span>, .keep <span class="op">=</span> <span class="st">"unused"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The following tagged variables are lost:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
+<span><span class="co">#&gt;  speed - mph</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; // safeframe object</span></span>
 <span><span class="co">#&gt;   dist edad</span></span>
@@ -359,22 +364,21 @@ same way a data.frame would:</p>
 <span><span class="co">#&gt; 6   10    9</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
-<span><span class="co">#&gt;  edad - Miles per hour</span></span></code></pre></div>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dplyrpull">
 <code>dplyr::pull()</code> ✅<a class="anchor" aria-label="anchor" href="#dplyrpull"></a>
 </h3>
-<p><code><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">dplyr::pull()</a></code> returns a vector, which results, as
-expected, in the loss of the safeframe class and tags:</p>
+<p><code><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">dplyr::pull()</a></code> returns a vector, which maintains the tag
+but result in loss of the safeframe class:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">speed</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  4  4  7  7  8  9 10 10 10 11 11 12 12 12 12 13 13 13 13 14 14 14 14 15 15</span></span>
 <span><span class="co">#&gt; [26] 15 16 16 17 17 17 18 18 18 18 19 19 19 20 20 20 20 20 22 23 24 24 24 24 25</span></span>
 <span><span class="co">#&gt; attr(,"label")</span></span>
-<span><span class="co">#&gt; [1] "Miles per hour"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "mph"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dplyrrelocate">
@@ -395,8 +399,8 @@ expected, in the loss of the safeframe class and tags:</p>
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dplyrrename-dplyrrename_with">
@@ -405,9 +409,7 @@ expected, in the loss of the safeframe class and tags:</p>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">dplyr::rename()</a></code> is fully compatible out-of-the-box with
 safeframe, meaning that tags will be updated at the same time that
-columns are renamed. This is possibly because it uses
-<code>names&lt;-()</code> under the hood, which safeframe provides a
-custom <code>names&lt;-.safeframe()</code> method for:</p>
+columns are renamed.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>edad <span class="op">=</span> <span class="va">speed</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -423,8 +425,8 @@ custom <code>names&lt;-.safeframe()</code> method for:</p>
 <span><span class="co">#&gt; 6    9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  edad - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - edad</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename_with</a></span><span class="op">(</span><span class="va">toupper</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -440,8 +442,8 @@ custom <code>names&lt;-.safeframe()</code> method for:</p>
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  SPEED - Miles per hour</span></span>
-<span><span class="co">#&gt;  DIST - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - SPEED</span></span>
+<span><span class="co">#&gt;  distance - DIST</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dplyrselect">
@@ -465,8 +467,8 @@ including when columns are renamed in a <code><a href="https://dplyr.tidyverse.o
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span>
 <span></span>
 <span><span class="co"># tags are updated!</span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -483,8 +485,8 @@ including when columns are renamed in a <code><a href="https://dplyr.tidyverse.o
 <span><span class="co">#&gt; 6   10    9</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
-<span><span class="co">#&gt;  edad - Miles per hour</span></span></code></pre></div>
+<span><span class="co">#&gt;  distance - dist</span></span>
+<span><span class="co">#&gt;  mph - edad</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -525,9 +527,9 @@ actually lost</li>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The following tagged variables are lost:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
+<span><span class="co">#&gt;  speed - mph</span></span>
 <span><span class="co">#&gt; Warning: The following tagged variables are lost:</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span>
+<span><span class="co">#&gt;  dist - distance</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; // safeframe object</span></span>
 <span><span class="co">#&gt;   speed dist</span></span>
@@ -539,8 +541,8 @@ actually lost</li>
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="joins">Joins ✘<a class="anchor" aria-label="anchor" href="#joins"></a>
@@ -570,8 +572,8 @@ second element are silently dropped.</p>
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -598,8 +600,8 @@ tidyselect-incompatible functions, such as:</p>
 <span><span class="co">#&gt; 6     9   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; tagged variables:</span></span>
-<span><span class="co">#&gt;  speed - Miles per hour</span></span>
-<span><span class="co">#&gt;  dist - Distance in miles</span></span></code></pre></div>
+<span><span class="co">#&gt;  mph - speed</span></span>
+<span><span class="co">#&gt;  distance - dist</span></span></code></pre></div>
 <p>As such, we could expect it to work with safeframe custom
 tidyselect-like function: <code><a href="../reference/has_tag.html">has_tag()</a></code> but it’s not the case
 since <code><a href="https://dplyr.tidyverse.org/reference/pick.html" class="external-link">pick()</a></code> currently strips out all attributes, including

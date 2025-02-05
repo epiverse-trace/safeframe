@@ -76,10 +76,8 @@ automatically use tagged fields for further data cleaning and analysis.</p>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; A named list with variable
-names in <code>x</code> as list names and the tags as list values. Values set to
-<code>NULL</code> remove the tag When specifying tags, please also see
-<code>default_values</code>.</p></dd>
+<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; A series of tags provided as
+<code>tag_name = "column_name"</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -100,8 +98,8 @@ names in <code>x</code> as list names and the tags as list values. Values set to
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">make_safeframe</span><span class="op">(</span><span class="va">cars</span>,</span></span>
-<span class="r-in"><span>  speed <span class="op">=</span> <span class="st">"Miles per hour"</span>,</span></span>
-<span class="r-in"><span>  dist <span class="op">=</span> <span class="st">"Distance in miles"</span></span></span>
+<span class="r-in"><span>  mph <span class="op">=</span> <span class="st">"speed"</span>,</span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="st">"dist"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## print result - just first few entries</span></span></span>
@@ -117,22 +115,22 @@ names in <code>x</code> as list names and the tags as list values. Values set to
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6     9   10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> tagged variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  speed - Miles per hour</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  dist - Distance in miles </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  mph - speed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  distance - dist </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## check tags</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="tags.html">tags</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $speed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Miles per hour"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $mph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "speed"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $dist</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Distance in miles"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $distance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "dist"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## tags can also be passed as a list with the splice operator (!!!)</span></span></span>
 <span class="r-in"><span><span class="va">my_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  speed <span class="op">=</span> <span class="st">"Miles per hour"</span>,</span></span>
-<span class="r-in"><span>  dist <span class="op">=</span> <span class="st">"Distance in miles"</span></span></span>
+<span class="r-in"><span>  mph <span class="op">=</span> <span class="st">"speed"</span>,</span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="st">"dist"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">new_x</span> <span class="op">&lt;-</span> <span class="fu">make_safeframe</span><span class="op">(</span><span class="va">cars</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">my_tags</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

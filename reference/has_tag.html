@@ -71,19 +71,13 @@
     <p>A numeric vector containing the position of the columns with the
 requested tags</p>
     </div>
-    <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Using this in a pipeline results in a 'safeframe' object, but does not
-maintain the variable tags at this time. It is primarily useful to make
-your pipelines human readable.</p>
-    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## create safeframe</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_safeframe.html">make_safeframe</a></span><span class="op">(</span><span class="va">cars</span>,</span></span>
-<span class="r-in"><span>  speed <span class="op">=</span> <span class="st">"Miles per hour"</span>,</span></span>
-<span class="r-in"><span>  dist <span class="op">=</span> <span class="st">"Distance in miles"</span></span></span>
+<span class="r-in"><span>  mph <span class="op">=</span> <span class="st">"speed"</span>,</span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="st">"dist"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -97,12 +91,12 @@ your pipelines human readable.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6     9   10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> tagged variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  speed - Miles per hour</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  dist - Distance in miles </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  mph - speed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  distance - dist </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">has_tag</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Miles per hour"</span>, <span class="st">"Distance in miles"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu">has_tag</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mph"</span>, <span class="st">"distance"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: dplyr</span>
@@ -126,8 +120,8 @@ your pipelines human readable.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6     9   10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> tagged variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  speed - Miles per hour</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  dist - Distance in miles </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  mph - speed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  distance - dist </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
