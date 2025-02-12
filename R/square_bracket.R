@@ -95,7 +95,7 @@
   old_classes <- class(x)
   out <- restore_tags(out, old_tags, lost_action)
   class(out) <- old_classes
-  
+
   out
 }
 
@@ -108,7 +108,7 @@
   out <- NextMethod()
   old_tags <- tags(x)
   old_classes <- class(x)
-  
+
   out <- restore_tags(out, old_tags, lost_action)
   class(out) <- old_classes
 
@@ -127,7 +127,7 @@
   lost_tags(old_tags, new_tags, lost_action)
 
   class(x) <- setdiff(class(x), "safeframe")
-  
+
   x <- NextMethod()
 
   # Call restore_tags to restore the tags
