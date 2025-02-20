@@ -47,7 +47,7 @@ test_that("Inherited classes are handled - #44", {
   x <- make_safeframe(x, bob = "y")
   expect_silent(validate_types(x, bob = "integer"))
   expect_silent(validate_types(x, bob = "numeric"))
-  
+
   y <- 1
   x <- data.frame(y)
   x <- make_safeframe(x, bob = "y")

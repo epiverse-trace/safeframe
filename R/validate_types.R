@@ -72,25 +72,33 @@ validate_types <- function(x, ...) {
 }
 
 #' Internal function
-#' 
 #' Custom implementation of checkmate's check_multi_class to ensure
 #' proper handling of multi-class situations as reported in #44.
-check_multi_class <- function (x, classes, null.ok = FALSE) 
-{
+#' @param x Object to check classes for
+#' @param classes Character vector of class names to check against
+#' @param null.ok Logical indicating whether NULL is allowed (default: FALSE)
+#' @noRd
+check_multi_class <- function(x, classes, null.ok = FALSE) {
   checkmate::qassert(classes, "S+")
   checkmate::qassert(null.ok, "B1")
-  if (is.null(x) && null.ok) 
+  if (is.null(x) && null.ok) {
     return(TRUE)
+  }
 
   # Get all classes including inherited ones
   obj_classes <- .class2(x)
 
   if (!any(classes %in% obj_classes)) {
-    cl = class(x)
-    return(sprintf("Must inherit from class '%s', but has class%s '%s'", 
-                   paste0(classes, collapse = "'/'"), if (length(cl) > 
-                                                          1L) "es" else "", paste0(cl, collapse = "','")))
+    cl <- class(x)
+    return(sprintf(
+      "Must inherit from class '%s', but has class%s '%s'",
+      paste(classes, collapse = "'/'"), if (length(cl) >
+        1L) {
+        "es"
+      } else {
+        ""
+      }, paste(cl, collapse = "','")
+    ))
   }
   return(TRUE)
 }
-
