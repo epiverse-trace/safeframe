@@ -40,3 +40,17 @@ test_that("validate_types fails if types are provided for non-existent tags", {
     validate_types(x, distance = "numeric")
   )
 })
+
+test_that("Inherited classes are handled - #44", {
+  y <- 1L
+  x <- data.frame(y)
+  x <- make_safeframe(x, bob = "y")
+  expect_silent(validate_types(x, bob = "integer"))
+  expect_silent(validate_types(x, bob = "numeric"))
+  
+  y <- 1
+  x <- data.frame(y)
+  x <- make_safeframe(x, bob = "y")
+  expect_silent(validate_types(x, bob = "double"))
+  expect_silent(validate_types(x, bob = "numeric"))
+})
