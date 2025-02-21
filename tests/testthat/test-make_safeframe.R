@@ -55,3 +55,10 @@ test_that("alternative tagging functionality - position", {
   # Out of bounds position
   expect_error(make_safeframe(cars, outcome = 3))
 })
+
+test_that("can set x as label, #45", {
+  x <- data.frame(x = 1)
+  expect_no_error(make_safeframe(x,
+    x = "x"
+  ))
+})

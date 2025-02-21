@@ -4,10 +4,10 @@
 \alias{make_safeframe}
 \title{Create a safeframe from a data.frame}
 \usage{
-make_safeframe(x, ...)
+make_safeframe(.data, ...)
 }
 \arguments{
-\item{x}{a \code{data.frame} or a \code{tibble}}
+\item{.data}{a \code{data.frame} or a \code{tibble}}
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A series of tags provided as
 \code{tag_name = "column_name"}}

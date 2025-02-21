@@ -3,6 +3,7 @@
 #' This function changes the `tags` of a `safeframe` object, using the same
 #' syntax as the constructor [make_safeframe()].
 #'
+#' @param x a `data.frame` or a `tibble`, equivalent to parameter `.data` in [make_safeframe()]
 #' @inheritParams make_safeframe
 #'
 #' @seealso [make_safeframe()] to create a `safeframe` object
