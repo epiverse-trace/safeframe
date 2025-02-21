@@ -7,7 +7,8 @@
 set_tags(x, ...)
 }
 \arguments{
-\item{x}{a \code{data.frame} or a \code{tibble}, equivalent to parameter \code{.data} in \code{\link[=make_safeframe]{make_safeframe()}}}
+\item{x}{a \code{data.frame} or a \code{tibble}, equivalent to parameter \code{.data} in
+\code{\link[=make_safeframe]{make_safeframe()}}}
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A series of tags provided as
 \code{tag_name = "column_name"}}
