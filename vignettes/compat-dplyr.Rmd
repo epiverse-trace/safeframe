@@ -89,6 +89,16 @@ During operations on columns, safeframe will:
 - stay invisible and conserve tags if no tagged column is affected by the operation
 - trigger `lost_tags_action()` if tagged columns are affected by the operation
 
+### `dplyr::count()` ✅ 
+
+Count introduces new columns and retains tags for the existing columns:
+
+```{r}
+x %>% 
+  count(speed) %>%
+  head()
+```
+
 ### `dplyr::mutate()` ✓ (partial)
 
 There is an incomplete compatibility with `dplyr::mutate()` in that simple renames without any actual modification of the column don't update the tags. In this scenario, users should rather use `dplyr::rename()`
@@ -163,6 +173,15 @@ x %>%
 ## Verbs operating on groups ✘
 
 Groups are not yet supported. Applying any verb operating on group to a safeframe will silently convert it back to a data.frame or tibble.
+
+```{r}
+# Does not retain tags
+x %>% 
+  group_by(speed) %>% 
+  head()
+```
+
+Please indicate if you would like to see this supported in a future release by commenting on the [GitHub issue about this](https://github.com/epiverse-trace/safeframe/issues/46).
 
 ## Verbs operating on data.frames
 
