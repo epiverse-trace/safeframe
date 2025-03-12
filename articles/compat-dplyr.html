@@ -300,6 +300,29 @@ the operation</li>
 affected by the operation</li>
 </ul>
 <div class="section level3">
+<h3 id="dplyrcount">
+<code>dplyr::count()</code> ✅<a class="anchor" aria-label="anchor" href="#dplyrcount"></a>
+</h3>
+<p>Count introduces new columns and retains tags for the existing
+columns:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">speed</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; // safeframe object</span></span>
+<span><span class="co">#&gt;   speed n</span></span>
+<span><span class="co">#&gt; 1     4 2</span></span>
+<span><span class="co">#&gt; 2     7 2</span></span>
+<span><span class="co">#&gt; 3     8 1</span></span>
+<span><span class="co">#&gt; 4     9 1</span></span>
+<span><span class="co">#&gt; 5    10 3</span></span>
+<span><span class="co">#&gt; 6    11 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; tagged variables:</span></span>
+<span><span class="co">#&gt;  mph - speed</span></span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="dplyrmutate-partial">
 <code>dplyr::mutate()</code> ✓ (partial)<a class="anchor" aria-label="anchor" href="#dplyrmutate-partial"></a>
 </h3>
@@ -310,7 +333,7 @@ users should rather use <code><a href="https://dplyr.tidyverse.org/reference/ren
 <p>Although <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">dplyr::mutate()</a></code> is not able to leverspeed to
 full power of safeframe tags, safeframe objects behave as expected the
 same way a data.frame would:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># In place modification doesn't lose tags</span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>speed <span class="op">=</span> <span class="va">speed</span> <span class="op">+</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -372,7 +395,7 @@ same way a data.frame would:</p>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">dplyr::pull()</a></code> returns a vector, which maintains the tag
 but result in loss of the safeframe class:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">speed</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  4  4  7  7  8  9 10 10 10 11 11 12 12 12 12 13 13 13 13 14 14 14 14 15 15</span></span>
@@ -384,7 +407,7 @@ but result in loss of the safeframe class:</p>
 <h3 id="dplyrrelocate">
 <code>dplyr::relocate()</code> ✅<a class="anchor" aria-label="anchor" href="#dplyrrelocate"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">speed</span>, .before <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -410,7 +433,7 @@ but result in loss of the safeframe class:</p>
 <p><code><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">dplyr::rename()</a></code> is fully compatible out-of-the-box with
 safeframe, meaning that tags will be updated at the same time that
 columns are renamed.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>edad <span class="op">=</span> <span class="va">speed</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -451,7 +474,7 @@ columns are renamed.</p>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">dplyr::select()</a></code> is fully compatible with safeframe,
 including when columns are renamed in a <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Works fine</span></span>
 <span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">speed</span>, <span class="va">dist</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -494,6 +517,24 @@ including when columns are renamed in a <code><a href="https://dplyr.tidyverse.o
 </h2>
 <p>Groups are not yet supported. Applying any verb operating on group to
 a safeframe will silently convert it back to a data.frame or tibble.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Does not retain tags</span></span>
+<span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">speed</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   speed [4]</span></span></span>
+<span><span class="co">#&gt;   speed  dist</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     4     2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     4    10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     7     4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     7    22</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     8    16</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     9    10</span></span></code></pre></div>
+<p>Please indicate if you would like to see this supported in a future
+release by commenting on the <a href="https://github.com/epiverse-trace/safeframe/issues/46" class="external-link">GitHub
+issue about this</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="verbs-operating-on-data-frames">Verbs operating on data.frames<a class="anchor" aria-label="anchor" href="#verbs-operating-on-data-frames"></a>
@@ -502,7 +543,7 @@ a safeframe will silently convert it back to a data.frame or tibble.</p>
 <h3 id="dplyrbind_rows">
 <code>dplyr::bind_rows()</code> ✅<a class="anchor" aria-label="anchor" href="#dplyrbind_rows"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 50  2</span></span>
 <span></span>
@@ -520,7 +561,7 @@ safeframe:</p>
 <li>Warnings are produced about lost tags, even for tags that are not
 actually lost</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">speed</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">dist</span><span class="op">)</span><span class="op">)</span></span>
@@ -549,7 +590,7 @@ actually lost</li>
 </h3>
 <p>Joins are currently not compatible with safeframe as tags from the
 second element are silently dropped.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">full_join</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">speed</span>, <span class="va">dist</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">dist</span>, <span class="va">speed</span><span class="op">)</span><span class="op">)</span></span>
@@ -585,7 +626,7 @@ second element are silently dropped.</p>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/pick.html" class="external-link">pick()</a></code> makes tidyselect functions work in usually
 tidyselect-incompatible functions, such as:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pick.html" class="external-link">pick</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"loc"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
