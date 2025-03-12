@@ -46,7 +46,7 @@ test_that("Compatibility with dplyr::slice()", {
 # Columns ----
 
 test_that("Compatibility with dplyr::count()", {
-  x %>% 
+  x %>%
     dplyr::count(speed, dist) %>%
     expect_s3_class("safeframe") %>%
     tags() %>%
