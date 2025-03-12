@@ -93,7 +93,7 @@
   # Case 2
   old_tags <- tags(x)
   old_classes <- class(x)
-  out <- restore_tags(out, old_tags, lost_action)
+  out <- restore_tags(out, old_tags, lost_action, subset = TRUE)
   class(out) <- old_classes
 
   out
