@@ -122,16 +122,13 @@
 `[[<-.safeframe` <- function(x, i, j, value) {
   lost_action <- get_lost_tags_action()
   old_tags <- tags(x)
-  new_tags <- old_tags
-
-  lost_tags(old_tags, new_tags, lost_action)
 
   class(x) <- setdiff(class(x), "safeframe")
 
   x <- NextMethod()
 
   # Call restore_tags to restore the tags
-  x <- restore_tags(x, new_tags, lost_action)
+  x <- restore_tags(x, old_tags, lost_action)
 
   x
 }

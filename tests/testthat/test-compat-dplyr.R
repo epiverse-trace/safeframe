@@ -45,6 +45,14 @@ test_that("Compatibility with dplyr::slice()", {
 
 # Columns ----
 
+test_that("Compatibility with dplyr::count()", {
+  x %>% 
+    dplyr::count(speed, dist) %>%
+    expect_s3_class("safeframe") %>%
+    tags() %>%
+    expect_identical(tags(x))
+})
+
 test_that("Compatibility with dplyr::transmute()", {
   x %>%
     dplyr::transmute(vitesse = speed) %>%

@@ -5,7 +5,7 @@
 #' same `data.frame`, but `safeframe`-aware packages will then be able to
 #' automatically use tagged fields for further data cleaning and analysis.
 #'
-#' @param x a `data.frame` or a `tibble`
+#' @param .data a `data.frame` or a `tibble`
 #'
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> A series of tags provided as
 #'   `tag_name = "column_name"`
@@ -44,16 +44,16 @@
 #' ## The output is strictly equivalent to the previous one
 #' identical(x, new_x)
 #'
-make_safeframe <- function(x,
+make_safeframe <- function(.data,
                            ...) {
   # assert inputs
-  checkmate::assert_data_frame(x, min.cols = 1)
-  assert_not_data_table(x)
+  checkmate::assert_data_frame(.data, min.cols = 1)
+  assert_not_data_table(.data)
 
   tags <- rlang::list2(...)
-  x <- tag_variables(x, tags)
+  .data <- tag_variables(.data, tags)
 
   # shape output and return object
-  class(x) <- c("safeframe", class(x))
-  x
+  class(.data) <- c("safeframe", class(.data))
+  .data
 }
