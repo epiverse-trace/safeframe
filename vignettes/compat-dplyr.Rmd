@@ -94,7 +94,7 @@ During operations on columns, safeframe will:
 Count introduces new columns and retains tags for the existing columns:
 
 ```{r}
-x %>% 
+x %>%
   count(speed) %>%
   head()
 ```
@@ -176,8 +176,8 @@ Groups are not yet supported. Applying any verb operating on group to a safefram
 
 ```{r}
 # Does not retain tags
-x %>% 
-  group_by(speed) %>% 
+x %>%
+  group_by(speed) %>%
   head()
 ```
 
