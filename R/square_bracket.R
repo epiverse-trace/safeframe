@@ -143,14 +143,14 @@
   lost_action <- get_lost_tags_action()
   old_tags <- tags(x)
   new_tags <- old_tags
+  old_classes <- class(x)
 
   lost_tags(old_tags, new_tags, lost_action)
-
-  class(x) <- setdiff(class(x), "safeframe")
   x <- NextMethod()
 
   # Call restore_tags to restore the tags
   x <- restore_tags(x, new_tags, lost_action)
+  class(x) <- old_classes
 
   x
 }
