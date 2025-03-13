@@ -35,7 +35,7 @@ validate_tags <- function(x) {
   checkmate::assert_class(x, "safeframe")
   x_tags <- tags(x)
 
-  if (is.null(unlist(x_tags))) stop("`x` has no tags")
+  if (is.null(unlist(x_tags))) stop("`x` has no tags", call. = FALSE)
 
   # check that x_tags is a list, and each tag is a `character`
   checkmate::assert_list(x_tags, types = c("character", "null"))

@@ -34,7 +34,7 @@ restore_tags <- function(x, tags,
   if (!subset) {
     common_vars <- intersect(names(x), tags)
     if (length(common_vars) == 0 && length(names(x)) > 0) {
-      stop("No matching tags provided.")
+      stop("No matching tags provided.", call. = FALSE)
     }
   }
 
