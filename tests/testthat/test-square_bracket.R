@@ -141,3 +141,20 @@ test_that("no warnings when untagged columns are dropped - #55", {
 
   expect_silent(x[, "speed"])
 })
+
+test_that("improve class retention - #56", {
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  class(x) <- c("linelist", class(x))
+  y <- suppressWarnings(x[, 1])
+  expect_identical(class(x), class(y))
+})
+
+test_that("removing tags in subset is informative - #76", {
+  on.exit(lost_tags_action())
+
+  # errors
+  lost_tags_action("warning", quiet = TRUE)
+  x <- make_safeframe(mtcars, consumption = "mpg", power = "hp")
+
+  expect_snapshot_warning(x[, c("cyl", "disp")])
+})
