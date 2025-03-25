@@ -1,20 +1,20 @@
 library(dplyr)
 
 test_that("tests for [ operator", {
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   on.exit(lost_tags_action())
 
   # errors
   lost_tags_action("warning", quiet = TRUE)
-  msg <- "The following tagged variables are lost:\n dist - Distance in miles"
-  expect_warning(x[, 1], msg)
+  msg <- "The following tagged variables are lost:\n dist - distance"
+  expect_warning(x[, 1], msg, fixed = TRUE)
 
   lost_tags_action("error", quiet = TRUE)
-  msg <- "The following tagged variables are lost:\n dist - Distance in miles"
+  msg <- "The following tagged variables are lost:\n dist - distance"
   expect_error(x[, 1], msg)
 
   lost_tags_action("warning", quiet = TRUE)
-  msg <- "The following tagged variables are lost:\n speed - Miles per hour\n dist - Distance in miles"
+  msg <- "The following tagged variables are lost:\n speed - mph\n dist - distance"
   expect_warning(x[, NULL], msg)
 
   # functionalities
@@ -24,7 +24,7 @@ test_that("tests for [ operator", {
   expect_identical(x[, 1, drop = TRUE], cars[, 1])
 
   lost_tags_action("none", quiet = TRUE)
-  expect_identical(x[, 1], make_safeframe(cars[, 1, drop = FALSE], speed = "Miles per hour"))
+  expect_identical(x[, 1], make_safeframe(cars[, 1, drop = FALSE], mph = "speed"))
 
   # [ behaves exactly as in the simple data.frame case, including when subset
   # only cols. https://github.com/epiverse-trace/linelist/issues/51
@@ -59,13 +59,13 @@ test_that("tests for [<- operator", {
 
   # errors
   lost_tags_action("warning", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  msg <- "The following tagged variables are lost:\n speed - Miles per hour"
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  msg <- "The following tagged variables are lost:\n speed - mph"
   expect_warning(x[, 1] <- NULL, msg)
 
   lost_tags_action("error", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  msg <- "The following tagged variables are lost:\n speed - Miles per hour"
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  msg <- "The following tagged variables are lost:\n speed - mph"
   expect_error(x[, 1] <- NULL, msg)
 
   # functionalities
@@ -73,37 +73,9 @@ test_that("tests for [<- operator", {
   expect_identical(x$speed[1:3], rep(1, 3))
 
   lost_tags_action("none", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   x[, 1:2] <- NULL
   expect_identical(ncol(x), 0L)
-
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  x[, 1] <- "test1"
-  # should update the values
-  # Should maintain the tag
-  expect_identical(attr(x$speed, "label"), "Miles per hour")
-  attr(x[, 1], "label") <- "Test tag assignment 1"
-  # should update the tag
-  expect_identical(attr(x$speed, "label"), "Test tag assignment 1")
-  # should not activate the lost_action
-
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  x[1] <- "test2"
-  # should update the values
-  # Should maintain the tag
-  expect_identical(attr(x$speed, "label"), "Miles per hour")
-
-  attr(x[1], "label") <- "Test tag assignment 2"
-  # Should update the tag
-  expect_identical(attr(x$speed, "label"), "Test tag assignment 2")
-})
-
-test_that("[<- allows innocuous tag modification", {
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  expect_no_condition(x[1] <- 1L)
-  y <- rep(1L, nrow(x))
-  attr(y, "label") <- "Miles per hour"
-  expect_identical(x$speed, y)
 })
 
 test_that("tests for [[<- operator", {
@@ -111,22 +83,23 @@ test_that("tests for [[<- operator", {
 
   # errors
   lost_tags_action("warning", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  expect_snapshot_warning(x[[1]] <- NULL)
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  msg <- "The following tagged variables are lost:\n speed - mph"
+  expect_warning(x[[1]] <- NULL, msg)
 
   lost_tags_action("error", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  expect_snapshot_error(x[[1]] <- NULL)
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  expect_error(x[[1]] <- NULL, msg)
 
   # functionalities
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   x[[1]] <- 1L
   y <- rep(1L, nrow(x))
-  attr(y, "label") <- "Miles per hour"
+  attr(y, "label") <- "mph"
   expect_identical(x$speed, y)
 
   lost_tags_action("none", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   x[[2]] <- NULL
   x[[1]] <- NULL
   expect_identical(ncol(x), 0L)
@@ -137,34 +110,59 @@ test_that("$<- operator detects tag loss", {
 
   # errors
   lost_tags_action("warning", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  msg <- "The following tagged variables are lost:\n speed - Miles per hour"
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  msg <- "The following tagged variables are lost:\n speed - mph"
   expect_warning(x$speed <- NULL, msg)
 
   lost_tags_action("error", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
-  msg <- "The following tagged variables are lost:\n speed - Miles per hour"
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  msg <- "The following tagged variables are lost:\n speed - mph"
   expect_error(x$speed <- NULL, msg)
 
   lost_tags_action("none", quiet = TRUE)
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   x$speed <- NULL
   x$dist <- NULL
   expect_identical(ncol(x), 0L)
 })
 
 test_that("$<- allows innocuous tag modification", {
-  x <- make_safeframe(cars, speed = "Miles per hour", dist = "Distance in miles")
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
   expect_no_condition(x$speed <- 1L)
   y <- rep(1L, nrow(x))
-  attr(y, "label") <- "Miles per hour"
+  attr(y, "label") <- "mph"
   expect_identical(x$speed, y)
 })
 
 test_that("no warnings when untagged columns are dropped - #55", {
   x <- make_safeframe(cars,
-    speed = "Miles per hour"
+    mph = "speed"
   )
 
   expect_silent(x[, "speed"])
+})
+
+test_that("improve class retention - #56", {
+  x <- make_safeframe(cars, mph = "speed", distance = "dist")
+  class(x) <- c("linelist", class(x))
+  y <- suppressWarnings(x[, 1])
+  expect_identical(class(x), class(y))
+  
+  y <- x
+  y[, 1] <- suppressWarnings(2 * y[, 1])
+  expect_identical(class(x), class(y))
+  
+  y <- x
+  y$speed <- 2*y$speed
+  expect_identical(class(x), class(y))
+})
+
+test_that("removing tags in subset is informative - #76", {
+  on.exit(lost_tags_action())
+
+  # errors
+  lost_tags_action("warning", quiet = TRUE)
+  x <- make_safeframe(mtcars, consumption = "mpg", power = "hp")
+
+  expect_snapshot_warning(x[, c("cyl", "disp")])
 })

@@ -1,4 +1,4 @@
-#' Base Tools for tagging and Validating Data
+#' Base Tools for Tagging and Validating Data
 #'
 #' The \pkg{safeframe} package provides tools to help tag and validate data.
 #' The 'safeframe' class adds column level attributes to a 'data.frame'.
@@ -33,7 +33,7 @@
 #'   pipelines).
 #'
 #'   * `names() <-` (and related functions, such as [dplyr::rename()]) will
-#'   rename tags as needed
+#'   rename variables and carry forward the existing tags
 #'
 #'   * `x[...] <-` and `x[[...]] <-` (see [sub_safeframe]): will adopt the
 #'    desired behaviour when tagged variables are lost
@@ -43,14 +43,15 @@
 #'
 #' @note The package does not aim to have complete integration with \pkg{dplyr}
 #' functions. For example, [dplyr::mutate()] and [dplyr::bind_rows()] will
-#' not preserve tags. We only provide compatibility for [dplyr::rename()].
+#' not preserve tags in all cases. We only provide compatibility for
+#' [dplyr::rename()].
 #'
 #' @examples
 #'
 #' # using base R style
 #' x <- make_safeframe(cars[1:50, ],
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #' x
 #'
@@ -70,7 +71,7 @@
 #'
 #' ## to trigger errors when tags are dropped
 #' # lost_tags_action("error")
-#' # x[, 2:5]
+#' # x[, 1]
 #'
 #' ## reset default behaviour
 #' lost_tags_action()
@@ -84,17 +85,17 @@
 #'   x <- cars %>%
 #'     tibble() %>%
 #'     make_safeframe(
-#'       speed = "Miles per hour",
-#'       dist = "Distance in miles"
+#'       mph = "speed",
+#'       distance = "dist"
 #'     ) %>%
 #'     mutate(result = if_else(speed > 50, "fast", "slow")) %>%
-#'     set_tags(result = "Ticket yes/no")
+#'     set_tags(ticket = "result")
 #'
 #'   head(x)
 #'
 #'   ## extract tagged variables
 #'   x %>%
-#'     select(has_tag(c("Ticket yes/no")))
+#'     select(has_tag(c("ticket")))
 #'
 #'   ## Retrieve all tags
 #'   x %>%

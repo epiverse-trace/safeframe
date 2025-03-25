@@ -17,8 +17,8 @@
 #' ## create a valid safeframe
 #' x <- cars |>
 #'   make_safeframe(
-#'     speed = "Miles per hour",
-#'     dist = "Distance in miles"
+#'     mph = "speed",
+#'     distance = "dist"
 #'   )
 #' x
 #'
@@ -28,14 +28,14 @@
 #'
 #' ## validation requires you to specify the types directly
 #' validate_safeframe(x,
-#'   speed = c("integer", "numeric"),
-#'   dist = "numeric"
+#'   mph = c("integer", "numeric"),
+#'   distance = "numeric"
 #' )
 validate_tags <- function(x) {
   checkmate::assert_class(x, "safeframe")
-  x_tags <- tags(x, show_null = TRUE)
+  x_tags <- tags(x)
 
-  if (is.null(unlist(x_tags))) stop("`x` has no tags")
+  if (is.null(unlist(x_tags))) stop("`x` has no tags", call. = FALSE)
 
   # check that x_tags is a list, and each tag is a `character`
   checkmate::assert_list(x_tags, types = c("character", "null"))

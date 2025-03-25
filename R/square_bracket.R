@@ -34,11 +34,11 @@
 #'   ## create a safeframe
 #'   x <- cars %>%
 #'     make_safeframe(
-#'       speed = "Miles per hour",
-#'       dist = "Distance in miles"
+#'       mph = "speed",
+#'       distance = "dist"
 #'     ) %>%
 #'     mutate(result = if_else(speed > 50, "fast", "slow")) %>%
-#'     set_tags(result = "Ticket")
+#'     set_tags(ticket = "result")
 #'   x
 #'
 #'   ## dangerous removal of a tagged column setting it to NULL issues warning
@@ -48,7 +48,7 @@
 #'   x[[2]] <- NULL
 #'   x
 #'
-#'   x$age <- NULL
+#'   x$speed <- NULL
 #'   x
 #' }
 `[.safeframe` <- function(x, i, j, drop = FALSE) {
@@ -91,8 +91,10 @@
   }
 
   # Case 2
-  old_tags <- tags(x, show_null = FALSE)
-  out <- restore_tags(out, old_tags, lost_action)
+  old_tags <- tags(x)
+  old_classes <- class(x)
+  out <- restore_tags(out, old_tags, lost_action, subset = TRUE)
+  class(out) <- old_classes
 
   out
 }
@@ -103,28 +105,15 @@
 
 `[<-.safeframe` <- function(x, i, j, value) {
   lost_action <- get_lost_tags_action()
-  old_tags <- tags(x, show_null = TRUE)
-  new_tags <- old_tags
-
-  # Handle different types of indexing
-  if (missing(j)) {
-    # Single index (e.g., x[1] <- value)
-    if (!is.null(attr(value, "label"))) {
-      new_tags[[i]] <- attr(value, "label")
-    }
-  } else {
-    # Row and column index (e.g., x[,1] <- value)
-    if (!is.null(attr(value, "label"))) {
-      new_tags[[j]] <- attr(value, "label")
-    }
-  }
-
-  x <- NextMethod()
+  out <- NextMethod()
+  old_tags <- tags(x)
+  old_classes <- class(x)
 
   # Call restore_tags to restore the tags
-  x <- restore_tags(x, new_tags, lost_action)
+  out <- restore_tags(out, old_tags, lost_action)
+  class(out) <- old_classes
 
-  x
+  out
 }
 
 #' @export
@@ -133,47 +122,33 @@
 
 `[[<-.safeframe` <- function(x, i, j, value) {
   lost_action <- get_lost_tags_action()
-  old_tags <- tags(x, show_null = TRUE)
-  new_tags <- old_tags
-
-  # Check if the assignment is to the "label" attribute
-  if (missing(j) && !is.null(attr(value, "label"))) {
-    new_tags[[i]] <- attr(value, "label")
-  }
-
-  lost_tags(old_tags, new_tags, lost_action)
+  old_tags <- tags(x)
 
   # If we don't unclass here, we can end up in a dispatch loop as 
   # restore_tags() calls [[.<-()
   class(x) <- setdiff(class(x), "safeframe")
+
   x <- NextMethod()
 
   # Call restore_tags to restore the tags
-  x <- restore_tags(x, new_tags, lost_action)
+  x <- restore_tags(x, old_tags, lost_action)
 
   x
 }
-
 
 #' @export
 #'
 #' @rdname sub_safeframe
 `$<-.safeframe` <- function(x, name, value) {
   lost_action <- get_lost_tags_action()
-  old_tags <- tags(x, show_null = TRUE)
-  new_tags <- old_tags
-
-  # Check if the assignment is to the "label" attribute
-  if (is.null(attr(x[[name]], "label")) && !is.null(attr(value, "label"))) {
-    new_tags[[name]] <- attr(value, "label")
-  }
-
-  lost_tags(old_tags, new_tags, lost_action)
+  old_tags <- tags(x)
+  old_classes <- class(x)
 
   x <- NextMethod()
 
   # Call restore_tags to restore the tags
-  x <- restore_tags(x, new_tags, lost_action)
+  x <- restore_tags(x, old_tags, lost_action)
+  class(x) <- old_classes
 
   x
 }

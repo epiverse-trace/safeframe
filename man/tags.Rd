@@ -9,13 +9,11 @@ tags(x, show_null = FALSE)
 \arguments{
 \item{x}{a \code{safeframe} object}
 
-\item{show_null}{a \code{logical} indicating if the complete list of tags,
-including \code{NULL} ones, should be returned; if \code{FALSE}, only tags with a
-non-NULL value are returned; defaults to \code{FALSE}}
+\item{show_null}{DEPRECATED}
 }
 \value{
-The function returns a named \code{list} where names indicate which column
-they correspond to, and values indicate the relevant tags.
+The function returns a named \code{list} where names indicate generic
+types of data, and values indicate which column they correspond to.
 }
 \description{
 This function returns the list of tags identifying specific variable types
@@ -27,7 +25,7 @@ tags are stored as the \code{label} attribute of the column variable.
 \examples{
 
 ## make a safeframe
-x <- make_safeframe(cars, speed = "Miles per hour")
+x <- make_safeframe(cars, mph = "speed")
 
 ## check non-null tags
 tags(x)

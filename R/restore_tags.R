@@ -7,36 +7,42 @@
 #'
 #' @param x a `data.frame`
 #'
-#' @param tags a list of tags as returned by [tags()]; if default values
-#' are missing, they will be added to the new list of tags. Matches column
-#' names with `x` to restore tags. Throws an error if no matches are found.
+#' @param tags a list of tags as returned by [tags()].
 #'
 #' @param lost_action a `character` indicating the behaviour to adopt when
 #'   tagged variables have been lost: "error" (default) will issue an error;
 #'   "warning" will issue a warning; "none" will do nothing
 #'
+#' @param subset a `boolean` indicating whether this relates to subsetting
+#'   behavior. Specifically used in `[.safeframe` to prevent errors when
+#'   subsetting untagged variables.
+#'
 #' @noRd
 #'
-#' @return The function returns a `safeframe` object with updated tags.
+#' @return The function returns a `safeframe` object with restored tags.
 #'
 
-restore_tags <- function(x, newTags,
-                         lost_action = c("error", "warning", "none")) {
+restore_tags <- function(x, tags,
+                         lost_action = c("error", "warning", "none"),
+                         subset = FALSE) {
   # assertions
   checkmate::assertClass(x, "data.frame")
-  checkmate::assertClass(newTags, "list")
+  checkmate::assertClass(tags, "list")
   lost_action <- match.arg(lost_action)
 
   # Match the remaining variables to the provided tags
-  common_vars <- intersect(names(x), names(newTags))
-  if (length(common_vars) == 0 && length(names(x)) > 0) {
-    stop("No matching tags provided.")
+  if (!subset) {
+    common_vars <- intersect(names(x), tags)
+    if (length(common_vars) == 0 && length(names(x)) > 0) {
+      stop("No matching tags provided.", call. = FALSE)
+    }
   }
 
-  lost_vars <- setdiff(names(newTags), names(x))
-
+  # We do not use setdiff because R has become inconsistent for our purposes
+  # Since https://github.com/wch/r-source/commit/6dedb304cfd66f0e5775cdd5c0bae6340ac48e84 # nolint: line_length_linter.
+  lost_vars <- tags[!unlist(tags) %in% names(x)]
   if (lost_action != "none" && length(lost_vars) > 0) {
-    lost_tags <- lapply(lost_vars, function(tag) newTags[[tag]])
+    lost_tags <- names(lost_vars)
 
     lost_msg <- vars_tags(lost_vars, lost_tags)
     msg <- paste(
@@ -52,10 +58,12 @@ restore_tags <- function(x, newTags,
       stop(errorCondition(msg, class = "safeframe_error"))
     }
   }
+  # Get names that are in tags but not in lost_vars
+  remaining_names <- setdiff(names(tags), names(lost_vars))
+  # Subset tags with remaining names
+  tags <- tags[remaining_names]
 
-  for (name in common_vars) {
-    attr(x[[name]], "label") <- newTags[[name]]
-  }
+  x <- tag_variables(x, tags)
 
   # Ensure class consistency
   if (!inherits(x, "safeframe")) {

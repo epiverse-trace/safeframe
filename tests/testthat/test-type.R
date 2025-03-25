@@ -21,13 +21,13 @@ test_that("type() returns all options as expected", {
 
 test_that("type() works nicely when combined with validate_types()", {
   x <- make_safeframe(cars,
-    speed = "Miles per hour",
-    dist = "Distance in miles"
+    mph = "speed",
+    distance = "dist"
   )
 
   expect_no_condition(validate_types(
     x,
-    speed = type("numeric"),
-    dist = type("numeric")
+    mph = type("numeric"),
+    distance = type("numeric")
   ))
 })

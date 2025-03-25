@@ -18,7 +18,7 @@ drop_safeframe <- function(x, remove_tags = TRUE) {
   if (remove_tags) {
     # Set the label attribute to NULL for all variables in x
     for (var in names(x)) {
-      attr(x[[var]], "label") <- NULL
+      x <- remove_tag(x, var)
     }
   }
   x

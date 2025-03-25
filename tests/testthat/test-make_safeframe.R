@@ -6,7 +6,7 @@ test_that("tests for make_safeframe", {
   msg <- "Must have at least 1 cols, but has 0 cols."
   expect_error(make_safeframe(data.frame()), msg)
 
-  msg <- "* Variable 'namedTag': Must be element of set {'speed','dist'}, but"
+  msg <- "* Variable 'tag': Must be element of set {'speed','dist'}, but"
   expect_error(make_safeframe(cars, outcome = "bar"), msg, fixed = TRUE)
 
   expect_error(
@@ -16,27 +16,25 @@ test_that("tests for make_safeframe", {
 
   # test functionalities
   expect_identical(
-    list(speed = NULL, dist = NULL),
-    tags(make_safeframe(cars), TRUE)
+    tags(make_safeframe(cars)), list()
   )
 
-  x <- make_safeframe(cars, dist = "Date onset", speed = "Date outcome")
-  expect_identical(tags(x)$dist, "Date onset")
-  expect_identical(tags(x)$speed, "Date outcome")
-  expect_null(tags(x)$"Date onset")
-  expect_null(tags(x)$"Date outcome")
+  x <- make_safeframe(cars, distance = "dist", mph = "speed")
+  expect_identical(tags(x)$distance, "dist")
+  expect_identical(tags(x)$mph, "speed")
+  expect_null(tags(x)$test)
 
-  x <- make_safeframe(cars, speed = "foo", dist = "bar")
+  x <- make_safeframe(cars, foo = "speed", bar = "dist")
   expect_identical(
-    tags(x, TRUE),
-    c(list(), speed = "foo", dist = "bar")
+    tags(x),
+    c(list(), foo = "speed", bar = "dist")
   )
 })
 
 test_that("make_safeframe() works with dynamic dots", {
   expect_identical(
-    make_safeframe(cars, dist = "date_onset", speed = "date_outcome"),
-    make_safeframe(cars, !!!list(dist = "date_onset", speed = "date_outcome"))
+    make_safeframe(cars, date_onset = "dist", date_outcome = "speed"),
+    make_safeframe(cars, !!!list(date_onset = "dist", date_outcome = "speed"))
   )
 })
 
@@ -52,7 +50,15 @@ test_that("make_safeframe() errors on data.table input", {
   )
 })
 
-test_that("make_safeframe() works with single & multi-word tags", {
-  expect_no_condition(make_safeframe(cars, speed = "mph"))
-  expect_no_condition(make_safeframe(cars, speed = "Miles per hour"))
+test_that("alternative tagging functionality - position", {
+  expect_silent(make_safeframe(cars, outcome = 2))
+  # Out of bounds position
+  expect_error(make_safeframe(cars, outcome = 3))
+})
+
+test_that("can set x as label, #45", {
+  x <- data.frame(x = 1)
+  expect_no_error(make_safeframe(x,
+    x = "x"
+  ))
 })

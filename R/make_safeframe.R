@@ -5,12 +5,10 @@
 #' same `data.frame`, but `safeframe`-aware packages will then be able to
 #' automatically use tagged fields for further data cleaning and analysis.
 #'
-#' @param x a `data.frame` or a `tibble`
+#' @param .data a `data.frame` or a `tibble`
 #'
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> A named list with variable
-#' names in `x` as list names and the tags as list values. Values set to
-#' `NULL` remove the tag When specifying tags, please also see
-#' `default_values`.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> A series of tags provided as
+#'   `tag_name = "column_name"`
 #'
 #' @seealso
 #'
@@ -26,8 +24,8 @@
 #' @examples
 #'
 #' x <- make_safeframe(cars,
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #'
 #' ## print result - just first few entries
@@ -38,24 +36,24 @@
 #'
 #' ## tags can also be passed as a list with the splice operator (!!!)
 #' my_tags <- list(
-#'   speed = "Miles per hour",
-#'   dist = "Distance in miles"
+#'   mph = "speed",
+#'   distance = "dist"
 #' )
 #' new_x <- make_safeframe(cars, !!!my_tags)
 #'
 #' ## The output is strictly equivalent to the previous one
 #' identical(x, new_x)
 #'
-make_safeframe <- function(x,
+make_safeframe <- function(.data,
                            ...) {
   # assert inputs
-  checkmate::assert_data_frame(x, min.cols = 1)
-  assert_not_data_table(x)
+  checkmate::assert_data_frame(.data, min.cols = 1)
+  assert_not_data_table(.data)
 
   tags <- rlang::list2(...)
-  x <- tag_variables(x, tags)
+  .data <- tag_variables(.data, tags)
 
   # shape output and return object
-  class(x) <- c("safeframe", class(x))
-  x
+  class(.data) <- c("safeframe", class(.data))
+  .data
 }

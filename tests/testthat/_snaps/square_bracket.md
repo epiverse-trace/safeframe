@@ -1,10 +1,6 @@
-# tests for [[<- operator
+# removing tags in subset is informative - #76
 
     The following tagged variables are lost:
-     speed - Miles per hour
-
----
-
-    The following tagged variables are lost:
-     speed - Miles per hour
+     mpg - consumption
+     hp - power
 

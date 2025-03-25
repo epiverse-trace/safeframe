@@ -9,8 +9,8 @@ validate_types(x, ...)
 \arguments{
 \item{x}{a \code{safeframe} object}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A named list with variable
-names in \code{x} as list names and the related types as list values.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A named list with tags in \code{x}
+as list names and the related types as list values.}
 }
 \value{
 A named \code{list}.
@@ -22,8 +22,8 @@ those not provided.
 }
 \examples{
 x <- make_safeframe(cars,
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 x
 
@@ -32,7 +32,7 @@ x
 tryCatch(validate_types(x), error = paste)
 
 ## to allow other types, e.g. gender to be integer, character or factor
-validate_types(x, speed = "numeric", dist = c(
+validate_types(x, mph = "numeric", distance = c(
   "integer",
   "character", "numeric"
 ))

@@ -16,22 +16,17 @@ requested tags
 \description{
 A selector function to use in \pkg{tidyverse} functions
 }
-\note{
-Using this in a pipeline results in a 'safeframe' object, but does not
-maintain the variable tags at this time. It is primarily useful to make
-your pipelines human readable.
-}
 \examples{
 ## create safeframe
 x <- make_safeframe(cars,
-  speed = "Miles per hour",
-  dist = "Distance in miles"
+  mph = "speed",
+  distance = "dist"
 )
 head(x)
 
 if (require(dplyr) && require(magrittr)) {
   x \%>\%
-    select(has_tag(c("Miles per hour", "Distance in miles"))) \%>\%
+    select(has_tag(c("mph", "distance"))) \%>\%
     head()
 }
 }

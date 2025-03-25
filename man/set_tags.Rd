@@ -7,12 +7,11 @@
 set_tags(x, ...)
 }
 \arguments{
-\item{x}{a \code{data.frame} or a \code{tibble}}
+\item{x}{a \code{data.frame} or a \code{tibble}, equivalent to parameter \code{.data} in
+\code{\link[=make_safeframe]{make_safeframe()}}}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A named list with variable
-names in \code{x} as list names and the tags as list values. Values set to
-\code{NULL} remove the tag When specifying tags, please also see
-\code{default_values}.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> A series of tags provided as
+\code{tag_name = "column_name"}}
 }
 \value{
 The function returns a \code{safeframe} object.
@@ -24,16 +23,16 @@ syntax as the constructor \code{\link[=make_safeframe]{make_safeframe()}}.
 \examples{
 
 ## create a safeframe
-x <- make_safeframe(cars, speed = "Miles per hour")
+x <- make_safeframe(cars, mph = "speed")
 tags(x)
 
 ## add new tags and fix an existing one
-x <- set_tags(x, dist = "Distance")
+x <- set_tags(x, distance = "dist")
 tags(x)
 
 ## remove tags by setting them to NULL
 old_tags <- tags(x)
-x <- set_tags(x, speed = NULL, dist = NULL)
+x <- set_tags(x, mph = NULL, distance = NULL)
 tags(x)
 
 ## setting tags providing a list (used to restore old tags here)
