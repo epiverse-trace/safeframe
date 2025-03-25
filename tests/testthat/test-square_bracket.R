@@ -147,6 +147,14 @@ test_that("improve class retention - #56", {
   class(x) <- c("linelist", class(x))
   y <- suppressWarnings(x[, 1])
   expect_identical(class(x), class(y))
+  
+  y <- x
+  y[, 1] <- suppressWarnings(2 * y[, 1])
+  expect_identical(class(x), class(y))
+  
+  y <- x
+  y$speed <- 2*y$speed
+  expect_identical(class(x), class(y))
 })
 
 test_that("removing tags in subset is informative - #76", {
