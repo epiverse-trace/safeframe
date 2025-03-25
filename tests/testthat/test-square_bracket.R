@@ -156,3 +156,13 @@ test_that("improve class retention - #56", {
   y$speed <- 2*y$speed
   expect_identical(class(x), class(y))
 })
+
+test_that("removing tags in subset is informative - #76", {
+  on.exit(lost_tags_action())
+
+  # errors
+  lost_tags_action("warning", quiet = TRUE)
+  x <- make_safeframe(mtcars, consumption = "mpg", power = "hp")
+
+  expect_snapshot_warning(x[, c("cyl", "disp")])
+})

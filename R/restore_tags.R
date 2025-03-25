@@ -13,22 +13,29 @@
 #'   tagged variables have been lost: "error" (default) will issue an error;
 #'   "warning" will issue a warning; "none" will do nothing
 #'
+#' @param subset a `boolean` indicating whether this relates to subsetting
+#'   behavior. Specifically used in `[.safeframe` to prevent errors when
+#'   subsetting untagged variables.
+#'
 #' @noRd
 #'
 #' @return The function returns a `safeframe` object with restored tags.
 #'
 
 restore_tags <- function(x, tags,
-                         lost_action = c("error", "warning", "none")) {
+                         lost_action = c("error", "warning", "none"),
+                         subset = FALSE) {
   # assertions
   checkmate::assertClass(x, "data.frame")
   checkmate::assertClass(tags, "list")
   lost_action <- match.arg(lost_action)
 
   # Match the remaining variables to the provided tags
-  common_vars <- intersect(names(x), tags)
-  if (length(common_vars) == 0 && length(names(x)) > 0) {
-    stop("No matching tags provided.")
+  if (!subset) {
+    common_vars <- intersect(names(x), tags)
+    if (length(common_vars) == 0 && length(names(x)) > 0) {
+      stop("No matching tags provided.", call. = FALSE)
+    }
   }
 
   # We do not use setdiff because R has become inconsistent for our purposes
