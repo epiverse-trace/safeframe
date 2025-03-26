@@ -31,7 +31,7 @@
 #' }
 print.safeframe <- function(x, ...) {
   cat("\n// safeframe object\n")
-  print(drop_safeframe(x))
+  NextMethod()
 
   # Extract names and values from tags(x)
   tag_values <- unlist(tags(x))
