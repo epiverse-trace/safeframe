@@ -12,3 +12,4 @@
 ^tools$
 ^doc$
 ^Meta$
+^cran-comments\.md$
