@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Generic Data Tagging and Validating • safeframe</title>
+<title>Generic Data Tagging and Validation Tool • safeframe</title>
 <script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Generic Data Tagging and Validating">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Generic Data Tagging and Validation Tool">
 <meta name="description" content="Provides tools to help tag and validate data according to user-specified rules. The safeframe class adds variable level attributes to data.frame columns. Once tagged, these variables can be seamlessly used in downstream analyses, making data pipelines clearer, more robust, and more reliable.">
 <meta property="og:description" content="Provides tools to help tag and validate data according to user-specified rules. The safeframe class adds variable level attributes to data.frame columns. Once tagged, these variables can be seamlessly used in downstream analyses, making data pipelines clearer, more robust, and more reliable.">
 <meta property="og:image" content="https://epiverse-trace.github.io/safeframe/logo.svg">
@@ -78,13 +78,17 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p><strong>safeframe</strong> provides functions to tag and validate data of any kind. safeframe is an abstraction from <a href="https://github.com/epiverse-trace/linelist" class="external-link"><strong>linelist</strong></a>, which applies these principles to epidemiological linelist data. The original proposal for this package can be found on <a href="https://github.com/orgs/epiverse-trace/discussions/221" class="external-link">the Discussion board</a>.</p>
+<p><strong>safeframe</strong> provides functions to tag and validate data of any kind. safeframe is an abstraction of <a href="https://github.com/epiverse-trace/linelist" class="external-link"><strong>linelist</strong></a>, which originally applied these principles to epidemiological linelist data. The original proposal for this package can be found on <a href="https://github.com/orgs/epiverse-trace/discussions/221" class="external-link">the Discussion board</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of safeframe from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install safeframe from CRAN (release) or GitHub (development):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<code class="sourceCode R"><span><span class="co"># CRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'safeframe'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Development</span></span>
+<span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"epiverse-trace/safeframe"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -96,8 +100,8 @@
 <span><span class="co"># Create a safeframe object</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_safeframe.html">make_safeframe</a></span><span class="op">(</span><span class="va">cars</span>, mph <span class="op">=</span> <span class="st">"speed"</span>, distance <span class="op">=</span> <span class="st">"dist"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Validate the data are of a specific type</span></span>
-<span><span class="fu"><a href="reference/validate_safeframe.html">validate_safeframe</a></span><span class="op">(</span><span class="va">x</span>, </span>
+<span><span class="co"># Validate the tagged data are of a specific type</span></span>
+<span><span class="fu"><a href="reference/validate_safeframe.html">validate_safeframe</a></span><span class="op">(</span><span class="va">x</span>,</span>
 <span>  mph <span class="op">=</span> <span class="st">'numeric'</span>,        <span class="co"># speed should be numeric</span></span>
 <span>  <span class="co"># type() is a helper function of related classes</span></span>
 <span>  distance <span class="op">=</span> <span class="fu"><a href="reference/type.html">type</a></span><span class="op">(</span><span class="st">'numeric'</span><span class="op">)</span>    <span class="co"># dist should be numeric, integer</span></span>
@@ -109,12 +113,15 @@
 <div class="section level3">
 <h3 id="lifecycle">Lifecycle<a class="anchor" aria-label="anchor" href="#lifecycle"></a>
 </h3>
-<p>This package is currently <em>experimental</em>, as defined by the <a href="https://www.reconverse.org/lifecycle.html" class="external-link">RECON software lifecycle</a>. This means that essential features and mechanisms are still being developed, and the package is not ready for use outside of the development team.</p>
+<p>This package is currently <em>maturing</em>, as defined by the <a href="https://www.reconverse.org/lifecycle.html" class="external-link">RECON software lifecycle</a>:</p>
+<blockquote>
+<p>Package is functional, documented and tested. Can be used in production with the understanding that the interface may still undergo minor changes. Typically semantic version &lt; 1.0.0.</p>
+</blockquote>
 </div>
 <div class="section level3">
 <h3 id="contributions">Contributions<a class="anchor" aria-label="anchor" href="#contributions"></a>
 </h3>
-<p>Contributions are welcome via <a href="https://github.com/epiverse-trace/safeframe/pulls" class="external-link">pull requests</a>. Anything bigger than a typo fix or a small documentation update should be discussed in an issue first. If you want to report a bug or suggest an enhancement, please open an issue. 😊 See also <a href="https://github.com/epiverse-trace/.github/blob/main/CONTRIBUTING.md" class="external-link">the general Epiverse TRACE contribution document</a>.</p>
+<p>Contributions are welcome via <a href="https://github.com/epiverse-trace/safeframe/pulls" class="external-link">pull requests</a>. Anything bigger than a typo fix or a small documentation update should be discussed in an issue first. If you want to report a bug or suggest an enhancement, please open an issue. 😊 See also <a href="https://github.com/epiverse-trace/.github/blob/main/CONTRIBUTING.md" class="external-link">the general Epiverse-TRACE contribution document</a>.</p>
 <details><summary>
 Common issues
 </summary><p>To make it easier for us to evaluate your contribution, please run the following commands before submitting a pull request to ensure your code is consistent with the rest of the package:</p>
@@ -198,7 +205,7 @@ Common issues
 <li><a href="https://opensource.org/license/mit/" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
 <li><a href="https://github.com/epiverse-trace/safeframe/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/epiverse-trace/safeframe/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/epiverse-trace/safeframe?branch=main" class="external-link"><img src="https://codecov.io/gh/epiverse-trace/safeframe/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://www.reconverse.org/lifecycle.html#experimental" class="external-link"><img src="https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-concept.svg" alt="lifecycle-concept"></a></li>
+<li><a href="https://www.reconverse.org/lifecycle.html#maturing" class="external-link"><img src="https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg" alt="lifecycle-concept"></a></li>
 </ul>
 </div>
 
@@ -211,7 +218,7 @@ Common issues
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000. Theme provided by <a href="https://github.com/epiverse-trace/epiversetheme" class="external-link">epiversetheme</a> 0.1.0.</p>
 </div>
 
     </footer>
