@@ -2,7 +2,7 @@
 #'
 #' @param tags A character vector of tags you want to operate on
 #'
-#' @returns A numeric vector containing the position of the columns with the
+#' @return A numeric vector containing the position of the columns with the
 #'   requested tags
 #'
 #' @export

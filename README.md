@@ -1,8 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file. -->
+
 <!-- The code to render this README is stored in .github/workflows/render-readme.yaml -->
+
 <!-- Variables marked with double curly braces will be transformed beforehand: -->
+
 <!-- `packagename` is extracted from the DESCRIPTION file -->
+
 <!-- `gh_repo` is extracted via a special environment variable in GitHub Actions -->
 
 # *safeframe*: Generic Data Tagging and Validating <img src="man/figures/logo.svg" align="right" width="120" alt="Logo for safeframe" />
@@ -10,27 +14,30 @@
 <!-- badges: start -->
 
 [![License:
-MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 [![R-CMD-check](https://github.com/epiverse-trace/safeframe/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/epiverse-trace/safeframe/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/epiverse-trace/safeframe/branch/main/graph/badge.svg)](https://app.codecov.io/gh/epiverse-trace/safeframe?branch=main)
-[![lifecycle-concept](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-concept.svg)](https://www.reconverse.org/lifecycle.html#experimental)
+[![lifecycle-concept](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
 
 <!-- badges: end -->
 
 **safeframe** provides functions to tag and validate data of any kind.
-safeframe is an abstraction from
+safeframe is an abstraction of
 [**linelist**](https://github.com/epiverse-trace/linelist), which
-applies these principles to epidemiological linelist data. The original
-proposal for this package can be found on [the Discussion
+originally applied these principles to epidemiological linelist data.
+The original proposal for this package can be found on [the Discussion
 board](https://github.com/orgs/epiverse-trace/discussions/221).
 
 ## Installation
 
-You can install the development version of safeframe from
-[GitHub](https://github.com/) with:
+You can install safeframe from CRAN (release) or GitHub (development):
 
 ``` r
+# CRAN
+install.packages('safeframe')
+
+# Development
 # install.packages("pak")
 pak::pak("epiverse-trace/safeframe")
 ```
@@ -43,8 +50,8 @@ library(safeframe)
 # Create a safeframe object
 x <- make_safeframe(cars, mph = "speed", distance = "dist")
 
-# Validate the data are of a specific type
-validate_safeframe(x, 
+# Validate the tagged data are of a specific type
+validate_safeframe(x,
   mph = 'numeric',        # speed should be numeric
   # type() is a helper function of related classes
   distance = type('numeric')    # dist should be numeric, integer
@@ -55,10 +62,12 @@ validate_safeframe(x,
 
 ### Lifecycle
 
-This package is currently *experimental*, as defined by the [RECON
-software lifecycle](https://www.reconverse.org/lifecycle.html). This
-means that essential features and mechanisms are still being developed,
-and the package is not ready for use outside of the development team.
+This package is currently *maturing*, as defined by the [RECON software
+lifecycle](https://www.reconverse.org/lifecycle.html):
+
+> Package is functional, documented and tested. Can be used in
+> production with the understanding that the interface may still undergo
+> minor changes. Typically semantic version \< 1.0.0.
 
 ### Contributions
 
@@ -66,12 +75,14 @@ Contributions are welcome via [pull
 requests](https://github.com/epiverse-trace/safeframe/pulls). Anything
 bigger than a typo fix or a small documentation update should be
 discussed in an issue first. If you want to report a bug or suggest an
-enhancement, please open an issue. 😊 See also [the general Epiverse
-TRACE contribution
+enhancement, please open an issue. 😊 See also [the general
+Epiverse-TRACE contribution
 document](https://github.com/epiverse-trace/.github/blob/main/CONTRIBUTING.md).
 
 <details>
+
 <summary>
+
 Common issues
 </summary>
 

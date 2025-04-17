@@ -126,6 +126,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item Hugo Gruson \email{hugo@data.org} (\href{https://orcid.org/0000-0002-4094-1476}{ORCID}) [reviewer]
+  \item data.org [copyright holder]
 }
 
 }
