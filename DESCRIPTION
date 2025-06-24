@@ -1,6 +1,6 @@
 Package: safeframe
 Title: Generic Data Tagging and Validation Tool
-Version: 0.0.1
+Version: 1.0.0
 Authors@R: c(
     person("Chris", "Hartgerink", , "chris@data.org", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0003-1050-6809")),
