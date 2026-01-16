@@ -1,12 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file. -->
-
 <!-- The code to render this README is stored in .github/workflows/render-readme.yaml -->
-
 <!-- Variables marked with double curly braces will be transformed beforehand: -->
-
 <!-- `packagename` is extracted from the DESCRIPTION file -->
-
 <!-- `gh_repo` is extracted via a special environment variable in GitHub Actions -->
 
 # *safeframe*: Generic Data Tagging and Validating <img src="man/figures/logo.svg" align="right" width="120" alt="Logo for safeframe" />
@@ -80,9 +76,7 @@ Epiverse-TRACE contribution
 document](https://github.com/epiverse-trace/.github/blob/main/CONTRIBUTING.md).
 
 <details>
-
 <summary>
-
 Common issues
 </summary>
 
